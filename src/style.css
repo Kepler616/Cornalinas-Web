@@ -13,23 +13,23 @@
   --crema-suave: #f7e9de;
   --blanco: #fffaf6;
 
-  /* Extensión cálida "papel" (secciones narrativas) */
-  --papel: #f6ead7;
-  --papel-alto: #fbf3e6;
-  --papel-sombra: #e8d3b3;
-  --cacao: #3a1f14;
-  --cacao-suave: #6e4630;
-  --oro: #b9853f;
+  /* Extensión cálida "papel" (secciones narrativas) — tonos más profundos y contrastados */
+  --papel: #d3b482;
+  --papel-alto: #e0c495;
+  --papel-sombra: #b3925c;
+  --cacao: #2a160c;
+  --cacao-suave: #4a2c1b;
+  --oro: #8c5e26;
   --oro-brillo: #d9a75c;
-  --verde-selva: #3f5b3f;
+  --verde-selva: #33482f;
 
-  /* Vidrio esmerilado (glassmorphism) */
-  --cristal-claro-fondo: rgba(255, 250, 244, 0.42);
-  --cristal-claro-borde: rgba(255, 255, 255, 0.55);
-  --cristal-claro-brillo: rgba(255, 255, 255, 0.65);
-  --cristal-oscuro-fondo: rgba(30, 10, 10, 0.38);
-  --cristal-oscuro-borde: rgba(252, 213, 191, 0.22);
-  --cristal-oscuro-brillo: rgba(255, 255, 255, 0.14);
+  /* Vidrio esmerilado (glassmorphism) — champán cálido en vez de blanco, más oscuro y opaco */
+  --cristal-claro-fondo: rgba(219, 185, 130, 0.5);
+  --cristal-claro-borde: rgba(255, 244, 224, 0.4);
+  --cristal-claro-brillo: rgba(255, 244, 224, 0.55);
+  --cristal-oscuro-fondo: rgba(15, 4, 4, 0.55);
+  --cristal-oscuro-borde: rgba(252, 213, 191, 0.2);
+  --cristal-oscuro-brillo: rgba(255, 255, 255, 0.12);
 
   --fuente-display: 'Cormorant Garamond', 'Times New Roman', serif;
   --fuente-cuerpo: 'Jost', 'Avenir', 'Segoe UI', sans-serif;
@@ -314,9 +314,9 @@ button {
 }
 
 .boton--claro {
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 244, 224, 0.5);
   color: var(--crema);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(58, 31, 20, 0.12);
 }
 
 .boton--claro:hover {

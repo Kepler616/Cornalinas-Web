@@ -142,9 +142,9 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   height: 20px;
   padding-inline: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(20, 5, 5, 0.28);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 244, 224, 0.3);
   color: inherit;
   font-size: 0.68rem;
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;

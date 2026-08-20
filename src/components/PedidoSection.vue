@@ -305,8 +305,8 @@ input[type='text'],
 input[type='email'],
 input[type='tel'],
 textarea {
-  border: 1px solid rgba(58, 31, 20, 0.16);
-  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(42, 22, 12, 0.28);
+  background: rgba(255, 248, 235, 0.5);
   backdrop-filter: blur(6px);
   border-radius: 6px;
   padding: 0.8rem 1rem;
@@ -321,7 +321,7 @@ input[type='text']:focus,
 input[type='email']:focus,
 input[type='tel']:focus,
 textarea:focus {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 248, 235, 0.82);
 }
 
 input:focus,
