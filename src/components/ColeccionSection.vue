@@ -146,7 +146,7 @@ const medios = {
 .coleccion__swiper {
   max-width: var(--ancho-max);
   margin-inline: auto;
-  padding: 0.5rem clamp(1.5rem, 5vw, 4rem) 1rem;
+  padding: 1rem clamp(1.5rem, 5vw, 4rem) 2.5rem;
 }
 
 .tarjeta {
@@ -156,12 +156,16 @@ const medios = {
   height: 100%;
   display: flex;
   flex-direction: column;
+  /* .cristal aplica una sombra de reposo pensada para paneles fijos; en un
+     carrusel se ve recortada por el overflow:hidden del propio Swiper, así
+     que aquí no hay sombra hasta el hover. */
+  box-shadow: none;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
 }
 
 .tarjeta:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 40px -24px rgba(58, 31, 20, 0.35);
+  box-shadow: 0 20px 32px -18px rgba(58, 31, 20, 0.35);
 }
 
 .tarjeta--destacada {
