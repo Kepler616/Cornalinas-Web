@@ -96,7 +96,6 @@ const idiomas = [
     z-index: 90;
     background: var(--cristal-oscuro-fondo);
     backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
     box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
   }
 }
