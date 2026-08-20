@@ -58,10 +58,16 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
           {{ enlace.texto }}
         </a>
         <a href="#pedido" @click="cerrarMenu">{{ t('nav.pedido') }} ({{ totalArticulos }})</a>
-        <SelectorIdioma oscuro />
       </nav>
     </transition>
   </header>
+
+  <!-- En móvil el selector vive como botón flotante (ver SelectorIdioma), no
+       dentro del menú hamburguesa, para que quede accesible sin abrir el
+       menú. Se declara fuera de <header> a propósito: ese elemento usa
+       backdrop-filter, que crea un containing block nuevo y rompe
+       position:fixed en los descendientes. -->
+  <SelectorIdioma flotante />
 </template>
 
 <style scoped>
