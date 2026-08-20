@@ -92,6 +92,17 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   box-shadow: 0 12px 32px -20px rgba(58, 31, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+/* Sin desenfoque, un fondo al 50% deja el contenido de abajo asomándose y
+   se ve sucio (el contenido se lee "por encima" del texto del menú). Si el
+   navegador no soporta backdrop-filter, o el usuario pidió menos
+   transparencia, se sube la opacidad para que la barra se lea sólida. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav--solida { background: var(--cristal-claro-fondo-solido); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav--solida { background: var(--cristal-claro-fondo-solido); }
+}
+
 .nav__interior {
   display: flex;
   align-items: center;
@@ -227,6 +238,15 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     font-size: 1.3rem;
     color: var(--crema-suave);
   }
+}
+
+/* Mismo respaldo que .nav--solida: sin desenfoque, el 55% de opacidad deja
+   el contenido de la página asomándose detrás de los enlaces del menú. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav__movil { background: var(--cristal-oscuro-fondo-solido); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav__movil { background: var(--cristal-oscuro-fondo-solido); }
 }
 
 .menu-enter-active,

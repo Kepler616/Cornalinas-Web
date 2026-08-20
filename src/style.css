@@ -31,6 +31,14 @@
   --cristal-oscuro-borde: rgba(252, 213, 191, 0.2);
   --cristal-oscuro-brillo: rgba(255, 255, 255, 0.12);
 
+  /* Respaldo para cuando backdrop-filter no está disponible (navegador sin
+     soporte, GPU sin aceleración, modo ahorro de batería) o el usuario pidió
+     "reducir transparencia": sin el desenfoque, un fondo a medio camino deja
+     el texto de abajo asomándose y se ve sucio, así que se sube la opacidad
+     casi al máximo para que la tarjeta se lea sólida en vez de mezclada. */
+  --cristal-claro-fondo-solido: rgba(224, 196, 149, 0.96);
+  --cristal-oscuro-fondo-solido: rgba(15, 4, 4, 0.96);
+
   --fuente-display: 'Cormorant Garamond', 'Times New Roman', serif;
   --fuente-cuerpo: 'Jost', 'Avenir', 'Segoe UI', sans-serif;
 
@@ -178,6 +186,16 @@ button {
   color: var(--crema-suave);
 }
 
+@media (prefers-reduced-transparency: reduce) {
+  .cristal--claro { background: var(--cristal-claro-fondo-solido); }
+  .cristal--oscuro { background: var(--cristal-oscuro-fondo-solido); }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cristal--claro { background: var(--cristal-claro-fondo-solido); }
+  .cristal--oscuro { background: var(--cristal-oscuro-fondo-solido); }
+}
+
 /* Orbes de color: dan profundidad detrás del vidrio, como luciérnagas
    deambulando. Se usa un radial-gradient (no filter:blur sobre una forma
    sólida) para que el desvanecido ocurra siempre dentro de la propia caja
@@ -206,42 +224,46 @@ button {
 .orbe--vagar3 { animation: vagar3 19s ease-in-out infinite; }
 .orbe--vagar4 { animation: vagar4 27s ease-in-out infinite; }
 
+/* Recorridos contenidos a ±18% de desplazamiento (antes llegaban a ±68%,
+   suficiente para sacar el orbe completo de la sección durante su vuelo).
+   Mantienen paradas irregulares y sentidos distintos para que se sigan
+   viendo erráticas, pero ahora siempre queda parte del orbe visible. */
 @keyframes vagar1 {
   0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-  14% { transform: translate(38%, -52%) scale(1.2); opacity: 0.75; }
-  29% { transform: translate(-22%, -68%) scale(0.8); opacity: 0.45; }
-  47% { transform: translate(-58%, -18%) scale(1.1); opacity: 0.8; }
-  63% { transform: translate(-30%, 40%) scale(0.85); opacity: 0.5; }
-  81% { transform: translate(26%, 55%) scale(1.15); opacity: 0.7; }
+  14% { transform: translate(12%, -16%) scale(1.15); opacity: 0.75; }
+  29% { transform: translate(-8%, -18%) scale(0.88); opacity: 0.5; }
+  47% { transform: translate(-16%, -4%) scale(1.08); opacity: 0.8; }
+  63% { transform: translate(-9%, 13%) scale(0.92); opacity: 0.55; }
+  81% { transform: translate(9%, 15%) scale(1.1); opacity: 0.7; }
   100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
 }
 
 @keyframes vagar2 {
   0% { transform: translate(0, 0) scale(1); opacity: 0.75; }
-  18% { transform: translate(-45%, 30%) scale(0.85); opacity: 0.45; }
-  33% { transform: translate(-20%, 62%) scale(1.18); opacity: 0.7; }
-  52% { transform: translate(40%, 48%) scale(0.9); opacity: 0.5; }
-  70% { transform: translate(60%, -22%) scale(1.1); opacity: 0.8; }
-  88% { transform: translate(15%, -48%) scale(0.95); opacity: 0.55; }
+  18% { transform: translate(-14%, 9%) scale(0.9); opacity: 0.5; }
+  33% { transform: translate(-6%, 17%) scale(1.12); opacity: 0.7; }
+  52% { transform: translate(12%, 13%) scale(0.94); opacity: 0.55; }
+  70% { transform: translate(16%, -8%) scale(1.08); opacity: 0.8; }
+  88% { transform: translate(5%, -15%) scale(0.96); opacity: 0.6; }
   100% { transform: translate(0, 0) scale(1); opacity: 0.75; }
 }
 
 @keyframes vagar3 {
   0% { transform: translate(0, 0) scale(1); opacity: 0.55; }
-  20% { transform: translate(-34%, -40%) scale(1.12); opacity: 0.8; }
-  41% { transform: translate(32%, -30%) scale(0.82); opacity: 0.5; }
-  58% { transform: translate(48%, 25%) scale(1.2); opacity: 0.7; }
-  76% { transform: translate(-10%, 50%) scale(0.88); opacity: 0.45; }
+  20% { transform: translate(-12%, -14%) scale(1.1); opacity: 0.8; }
+  41% { transform: translate(11%, -11%) scale(0.9); opacity: 0.55; }
+  58% { transform: translate(16%, 9%) scale(1.14); opacity: 0.7; }
+  76% { transform: translate(-4%, 17%) scale(0.93); opacity: 0.5; }
   100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
 }
 
 @keyframes vagar4 {
   0% { transform: translate(0, 0) scale(1); opacity: 0.65; }
-  16% { transform: translate(28%, 44%) scale(0.9); opacity: 0.4; }
-  35% { transform: translate(55%, 5%) scale(1.15); opacity: 0.75; }
-  54% { transform: translate(20%, -46%) scale(0.85); opacity: 0.5; }
-  72% { transform: translate(-40%, -30%) scale(1.1); opacity: 0.8; }
-  90% { transform: translate(-52%, 20%) scale(0.92); opacity: 0.55; }
+  16% { transform: translate(10%, 14%) scale(0.94); opacity: 0.5; }
+  35% { transform: translate(17%, 2%) scale(1.1); opacity: 0.75; }
+  54% { transform: translate(7%, -15%) scale(0.92); opacity: 0.55; }
+  72% { transform: translate(-12%, -10%) scale(1.08); opacity: 0.8; }
+  90% { transform: translate(-16%, 6%) scale(0.96); opacity: 0.6; }
   100% { transform: translate(0, 0) scale(1); opacity: 0.65; }
 }
 

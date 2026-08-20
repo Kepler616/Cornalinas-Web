@@ -100,4 +100,11 @@ const idiomas = [
     box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55);
   }
 }
+
+@media (prefers-reduced-transparency: reduce) {
+  .selector--flotante { background: var(--cristal-oscuro-fondo-solido); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .selector--flotante { background: var(--cristal-oscuro-fondo-solido); }
+}
 </style>

@@ -144,7 +144,7 @@ export default {
     eyebrow: '08 · Con gratitud',
     titulo: 'Antes que nosotros, están sus manos.',
     cuerpo:
-      'La magia de este chocolate comienza mucho antes de llegar a nuestro taller. Rendimos homenaje a las productoras, agricultores y comunidades campesinas en Venezuela que cuidan el cacao y hacen posible su extraordinaria calidad. Sin su paciencia, conocimiento y vínculo con la tierra, Cornalinas simplemente no existiría.',
+      'La magia de este chocolate comienza mucho antes de llegar a nuestro taller. Rendimos homenaje a las fincas productoras, los agricultores y las comunidades campesinas en Venezuela que cuidan el cacao y hacen posible su extraordinaria calidad. Sin su paciencia, conocimiento y vínculo con la tierra, Cornalinas simplemente no existiría.',
     cierre: 'Chocolate venezolano hecho con afecto.',
     copyright: '© {anio} Cornalinas. Todos los derechos reservados.',
   },

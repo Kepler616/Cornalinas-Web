@@ -144,7 +144,7 @@ export default {
     eyebrow: '08 · Mit Dankbarkeit',
     titulo: 'Vor uns stehen ihre Hände.',
     cuerpo:
-      'Die Magie dieser Schokolade beginnt lange bevor sie unsere Werkstatt erreicht. Wir würdigen die Erzeugerinnen, Landwirte und ländlichen Gemeinschaften in Venezuela, die den Kakao pflegen und seine außergewöhnliche Qualität möglich machen. Ohne ihre Geduld, ihr Wissen und ihre Verbundenheit mit dem Land würde es Cornalinas schlicht nicht geben.',
+      'Die Magie dieser Schokolade beginnt lange bevor sie unsere Werkstatt erreicht. Wir würdigen die Erzeugerbetriebe, die Landwirte und die ländlichen Gemeinschaften in Venezuela, die den Kakao pflegen und seine außergewöhnliche Qualität möglich machen. Ohne ihre Geduld, ihr Wissen und ihre Verbundenheit mit dem Land würde es Cornalinas schlicht nicht geben.',
     cierre: 'Venezolanische Schokolade, mit Zuneigung gemacht.',
     copyright: '© {anio} Cornalinas. Alle Rechte vorbehalten.',
   },

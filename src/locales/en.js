@@ -144,7 +144,7 @@ export default {
     eyebrow: '08 · With gratitude',
     titulo: 'Before us, there are their hands.',
     cuerpo:
-      "The magic of this chocolate begins long before it reaches our workshop. We pay tribute to the women producers, farmers and rural communities in Venezuela who tend the cacao and make its extraordinary quality possible. Without their patience, knowledge and bond with the land, Cornalinas simply wouldn't exist.",
+      "The magic of this chocolate begins long before it reaches our workshop. We pay tribute to the cacao-producing farms, the farmers and the rural communities in Venezuela who tend the cacao and make its extraordinary quality possible. Without their patience, knowledge and bond with the land, Cornalinas simply wouldn't exist.",
     cierre: 'Venezuelan chocolate made with affection.',
     copyright: '© {anio} Cornalinas. All rights reserved.',
   },
