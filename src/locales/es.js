@@ -1,0 +1,151 @@
+export default {
+  meta: {
+    title: 'Cornalinas · Chocolate Venezolano Artesanal Hecho en Berlín',
+    description:
+      'Descubre Cornalinas, chocolate artesanal Bean to Bar que une la riqueza del cacao venezolano con el oficio chocolatero en Berlín. Pide tu selección hoy.',
+  },
+  nav: {
+    historia: 'Historia',
+    coleccion: 'Colección',
+    pedido: 'Pedido',
+    abrirMenu: 'Abrir menú',
+  },
+  hero: {
+    eyebrow: 'Chocolate venezolano · Hecho en Berlín',
+    titulo1: 'Un viaje a casa,',
+    titulo2: 'fundido en chocolate.',
+    lema: 'El cacao viaja con nosotros; los recuerdos se transforman. Descubre un origen con infinitas formas de sentir, elaborado a mano y con afecto en el corazón de Alemania.',
+    cta: 'Descubre nuestro origen',
+    scrollAria: 'Bajar a nuestra historia',
+    scroll: 'Deslizar',
+  },
+  historia: {
+    eyebrow: '02 · Nuestra historia',
+    titulo: 'De Venezuela, con el corazón en las manos.',
+    cuerpo:
+      'Cornalinas es más que una chocolatería; es nuestro puente de conexión. Nacimos de la profunda nostalgia por los sabores de nuestra tierra y el anhelo de compartirlos. Aquí unimos nuestras raíces venezolanas, el meticuloso oficio artesanal y una nueva vida en Alemania. Cada pieza que creamos guarda una memoria: una sobremesa en familia, un regalo inesperado o la forma más dulce de decir «estoy contigo».',
+    venezuela: 'Venezuela',
+    berlin: 'Berlín',
+    pie: 'El cacao viaja; el afecto se queda.',
+  },
+  proceso: {
+    eyebrow: '03 · Proceso Bean to Bar',
+    titulo: 'Del grano a la tableta: el respeto por el origen.',
+    cuerpo:
+      'Creemos en el movimiento Bean to Bar porque es la única forma de honrar el verdadero carácter del cacao. Acompañamos cada semilla desde que nace hasta que llega a tus manos, trabajando en pequeños lotes para cuidar cada detalle.',
+    pasos: [
+      { titulo: 'Selección', texto: 'Elegimos pacientemente los mejores granos de nuestras tierras.' },
+      { titulo: 'Tostado', texto: 'Despertamos los aromas y matices ocultos con precisión térmica.' },
+      { titulo: 'Refinado', texto: 'Logramos texturas sedosas que se funden perfectamente en el paladar.' },
+      { titulo: 'Templado', texto: 'El toque maestro para un brillo impecable y el crujido perfecto.' },
+    ],
+  },
+  materia: {
+    eyebrow: '05 · Materia prima',
+    titulo: 'Venezuela en cada nota de sabor.',
+    cuerpo:
+      'Nuestro cacao es el protagonista indiscutible. Complejo, aromático y lleno de vida. Es una materia prima que habla directamente de su tierra y de la sabiduría ancestral de quienes la cultivan.',
+    foto: 'Temperado artesanal del chocolate Cornalinas',
+    rasgos: [
+      { etiqueta: 'Origen', valor: 'Venezuela' },
+      { etiqueta: 'Perfil', valor: 'Frutal · Floral · Profundo' },
+      { etiqueta: 'Proceso', valor: 'Artesanal en pequeñas partidas' },
+    ],
+  },
+  coleccion: {
+    eyebrow: '04 · Nuestra colección',
+    titulo: 'Pequeñas delicadezas. Grandes emociones.',
+    cuerpo: 'Explora nuestra selección y construye tu propio momento Cornalinas.',
+    notaPrecios: 'Los precios de esta primera propuesta son provisionales.',
+    insignia: 'Edición limitada',
+    quitar: 'Quitar una unidad',
+    anadir: 'Añadir una unidad',
+    anterior: 'Producto anterior',
+    siguiente: 'Producto siguiente',
+    productos: {
+      'origen-70': {
+        nombre: 'Tableta Origen (70%)',
+        formato: '70 g',
+        descripcion: '70 g de puro carácter venezolano. Intensidad en su máxima expresión.',
+      },
+      'leche-45': {
+        nombre: 'Tableta con Leche (45%)',
+        formato: '70 g',
+        descripcion: '70 g de nostalgia. Cremosa, suave y perfectamente equilibrada.',
+      },
+      'bombones-6': {
+        nombre: 'Caja de Bombones',
+        formato: '6 piezas',
+        descripcion: 'Una selección artesanal curada a mano. El detalle perfecto para sorprender.',
+      },
+      'edicion-especial-9': {
+        nombre: 'Edición Especial — Caja Signature',
+        formato: '9 piezas',
+        descripcion: 'Nuestra propuesta insignia: tres texturas de cacao venezolano, una sola historia.',
+      },
+    },
+  },
+  pedido: {
+    eyebrow: '06 · Tu selección',
+    titulo: 'Hagamos este momento tuyo.',
+    cuerpo:
+      'Completa tus datos y prepararemos la confirmación de tu pedido personalmente, con el mismo cuidado con el que elaboramos nuestro chocolate.',
+    resumenVacio: 'Aún no has añadido productos.',
+    verColeccion: 'Ver la colección →',
+    total: '{count} artículo | {count} artículos',
+    totalPrefijo: 'Total provisional',
+    confirmacion: {
+      titulo: 'Gracias por tu confianza.',
+      texto: 'Hemos preparado tu solicitud en tu cliente de correo. En cuanto la recibamos, te contactaremos personalmente para confirmar disponibilidad, envío y el total final.',
+      boton: 'Hacer otra solicitud',
+    },
+    form: {
+      nombreLabel: 'Nombre completo',
+      nombrePlaceholder: 'Tu nombre',
+      emailLabel: 'Correo electrónico',
+      emailPlaceholder: 'tu{arroba}correo.com',
+      telefonoLabel: 'Teléfono',
+      telefonoPlaceholder: '+49 ...',
+      entregaLegend: 'Método de entrega',
+      recogida: 'Recogida en tienda',
+      envio: 'Envío a domicilio',
+      direccionLabel: 'Dirección de envío',
+      direccionPlaceholder: 'Calle, número, ciudad, código postal',
+      pagoLegend: 'Método de pago',
+      transferencia: 'Transferencia bancaria',
+      efectivo: 'Efectivo contra entrega',
+      mensajeLabel: 'Mensaje (opcional)',
+      mensajePlaceholder: 'Alguna dedicatoria o detalle para tu pedido',
+      notaConfianza:
+        'No se realizará ningún cobro automático en esta página. Te contactaremos para confirmar disponibilidad, detalles de envío y el total final antes del pago.',
+      boton: 'Solicitar mi pedido con afecto →',
+    },
+    correo: {
+      asunto: 'Nueva solicitud de pedido — Cornalinas',
+      titulo: 'Nueva solicitud de pedido Cornalinas',
+      seleccion: 'Selección:',
+      total: 'Total provisional: {valor}',
+      nombre: 'Nombre: {valor}',
+      email: 'Email: {valor}',
+      telefono: 'Teléfono: {valor}',
+      entrega: 'Entrega: {valor}',
+      direccion: 'Dirección: {valor}',
+      pago: 'Pago: {valor}',
+      mensaje: 'Mensaje: {valor}',
+    },
+  },
+  regalo: {
+    eyebrow: '07 · Para regalar',
+    titulo: 'Hay afectos que saben a chocolate.',
+    cuerpo: 'Porque un chocolate es un abrazo que se puede comer. Comparte un pedacito de nuestra historia con quien más quieres.',
+    cta: 'Elegir un detalle para regalar →',
+  },
+  footer: {
+    eyebrow: '08 · Con gratitud',
+    titulo: 'Antes que nosotros, están sus manos.',
+    cuerpo:
+      'La magia de este chocolate comienza mucho antes de llegar a nuestro taller. Rendimos homenaje a las productoras, agricultores y comunidades campesinas en Venezuela que cuidan el cacao y hacen posible su extraordinaria calidad. Sin su paciencia, conocimiento y vínculo con la tierra, Cornalinas simplemente no existiría.',
+    cierre: 'Chocolate venezolano hecho con afecto.',
+    copyright: '© {anio} Cornalinas. Todos los derechos reservados.',
+  },
+}

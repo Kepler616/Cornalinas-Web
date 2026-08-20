@@ -1,12 +1,20 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import IconoCornalinas from './IconoCornalinas.vue'
 
-const pasos = [
-  { numero: '01', titulo: 'Selección', icono: 'grano', texto: 'Elegimos pacientemente los mejores granos de nuestras tierras.' },
-  { numero: '02', titulo: 'Tostado', icono: 'fuego', texto: 'Despertamos los aromas y matices ocultos con precisión térmica.' },
-  { numero: '03', titulo: 'Refinado', icono: 'remolino', texto: 'Logramos texturas sedosas que se funden perfectamente en el paladar.' },
-  { numero: '04', titulo: 'Templado', icono: 'brillo', texto: 'El toque maestro para un brillo impecable y el crujido perfecto.' },
-]
+const { t, tm } = useI18n()
+
+const iconos = ['grano', 'fuego', 'remolino', 'brillo']
+
+const pasos = computed(() =>
+  tm('proceso.pasos').map((paso, i) => ({
+    numero: String(i + 1).padStart(2, '0'),
+    icono: iconos[i],
+    titulo: paso.titulo,
+    texto: paso.texto,
+  }))
+)
 </script>
 
 <template>
@@ -16,15 +24,12 @@ const pasos = [
 
     <div class="contenedor">
       <div class="proceso__cabecera">
-        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">03 · Proceso Bean to Bar</p>
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">{{ t('proceso.eyebrow') }}</p>
         <h2 v-reveal="{ tipo: 'mascara' }" class="proceso__titulo">
-          <span>Del grano a la tableta: el respeto por el origen.</span>
+          <span>{{ t('proceso.titulo') }}</span>
         </h2>
         <p v-reveal="{ tipo: 'izquierda', delay: 140 }" class="proceso__cuerpo">
-          Creemos en el movimiento Bean to Bar porque es la única forma de
-          honrar el verdadero carácter del cacao. Acompañamos cada semilla
-          desde que nace hasta que llega a tus manos, trabajando en pequeños
-          lotes para cuidar cada detalle.
+          {{ t('proceso.cuerpo') }}
         </p>
       </div>
 

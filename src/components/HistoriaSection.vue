@@ -1,6 +1,9 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 import IconoCornalinas from './IconoCornalinas.vue'
 import monograma from '../assets/brand/monograma-rojo.png'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -9,17 +12,12 @@ import monograma from '../assets/brand/monograma-rojo.png'
 
     <div class="contenedor historia__grid">
       <div class="historia__texto">
-        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow">02 · Nuestra historia</p>
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow">{{ t('historia.eyebrow') }}</p>
         <h2 v-reveal="{ tipo: 'mascara' }" class="historia__titulo">
-          <span>De Venezuela, con el corazón en las manos.</span>
+          <span>{{ t('historia.titulo') }}</span>
         </h2>
         <p v-reveal="{ tipo: 'izquierda', delay: 120 }" class="historia__cuerpo capitular">
-          Cornalinas es más que una chocolatería; es nuestro puente de conexión.
-          Nacimos de la profunda nostalgia por los sabores de nuestra tierra y
-          el anhelo de compartirlos. Aquí unimos nuestras raíces venezolanas,
-          el meticuloso oficio artesanal y una nueva vida en Alemania. Cada
-          pieza que creamos guarda una memoria: una sobremesa en familia, un
-          regalo inesperado o la forma más dulce de decir «estoy contigo».
+          {{ t('historia.cuerpo') }}
         </p>
       </div>
 
@@ -28,15 +26,15 @@ import monograma from '../assets/brand/monograma-rojo.png'
         <div class="ruta">
           <div class="ruta__punto">
             <IconoCornalinas tipo="hoja" class="ruta__icono" />
-            <span>Venezuela</span>
+            <span>{{ t('historia.venezuela') }}</span>
           </div>
           <IconoCornalinas tipo="ruta" class="ruta__linea" />
           <div class="ruta__punto">
             <IconoCornalinas tipo="grano" class="ruta__icono" />
-            <span>Berlín</span>
+            <span>{{ t('historia.berlin') }}</span>
           </div>
         </div>
-        <p class="ruta__pie">El cacao viaja; el afecto se queda.</p>
+        <p class="ruta__pie">{{ t('historia.pie') }}</p>
       </div>
     </div>
   </section>

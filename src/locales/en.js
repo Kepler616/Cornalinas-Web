@@ -1,0 +1,151 @@
+export default {
+  meta: {
+    title: 'Cornalinas · Handcrafted Venezuelan Chocolate Made in Berlin',
+    description:
+      'Discover Cornalinas, Bean to Bar artisan chocolate that unites the richness of Venezuelan cacao with the craft of chocolate-making in Berlin. Request your selection today.',
+  },
+  nav: {
+    historia: 'Story',
+    coleccion: 'Collection',
+    pedido: 'Order',
+    abrirMenu: 'Open menu',
+  },
+  hero: {
+    eyebrow: 'Venezuelan chocolate · Made in Berlin',
+    titulo1: 'A journey home,',
+    titulo2: 'melted into chocolate.',
+    lema: 'The cacao travels with us; memories are transformed. Discover an origin with endless ways to feel, handmade with love in the heart of Germany.',
+    cta: 'Discover our origin',
+    scrollAria: 'Scroll to our story',
+    scroll: 'Scroll',
+  },
+  historia: {
+    eyebrow: '02 · Our story',
+    titulo: 'From Venezuela, with our heart in our hands.',
+    cuerpo:
+      "Cornalinas is more than a chocolate house; it's our bridge of connection. We were born from a deep longing for the flavors of our homeland and the wish to share them. Here we bring together our Venezuelan roots, meticulous craftsmanship, and a new life in Germany. Every piece we create holds a memory: a family gathering, an unexpected gift, or the sweetest way to say “I'm with you.”",
+    venezuela: 'Venezuela',
+    berlin: 'Berlin',
+    pie: 'The cacao travels; the affection stays.',
+  },
+  proceso: {
+    eyebrow: '03 · Bean to Bar process',
+    titulo: 'From bean to bar: respect for the origin.',
+    cuerpo:
+      "We believe in the Bean to Bar movement because it's the only way to honor cacao's true character. We follow every seed from its birth to your hands, working in small batches to look after every detail.",
+    pasos: [
+      { titulo: 'Selection', texto: 'We patiently choose the finest beans from our lands.' },
+      { titulo: 'Roasting', texto: 'We awaken hidden aromas and nuances with precise heat.' },
+      { titulo: 'Refining', texto: 'We achieve silky textures that melt perfectly on the palate.' },
+      { titulo: 'Tempering', texto: 'The master touch for an impeccable shine and the perfect snap.' },
+    ],
+  },
+  materia: {
+    eyebrow: '05 · Raw material',
+    titulo: 'Venezuela in every note of flavor.',
+    cuerpo:
+      "Our cacao is the undisputed protagonist. Complex, aromatic and full of life. It's a raw material that speaks directly of its land and the ancestral wisdom of those who grow it.",
+    foto: 'Artisanal tempering of Cornalinas chocolate',
+    rasgos: [
+      { etiqueta: 'Origin', valor: 'Venezuela' },
+      { etiqueta: 'Profile', valor: 'Fruity · Floral · Deep' },
+      { etiqueta: 'Process', valor: 'Handcrafted in small batches' },
+    ],
+  },
+  coleccion: {
+    eyebrow: '04 · Our collection',
+    titulo: 'Small delicacies. Big emotions.',
+    cuerpo: 'Explore our selection and build your own Cornalinas moment.',
+    notaPrecios: 'Prices in this first release are provisional.',
+    insignia: 'Limited edition',
+    quitar: 'Remove one unit',
+    anadir: 'Add one unit',
+    anterior: 'Previous product',
+    siguiente: 'Next product',
+    productos: {
+      'origen-70': {
+        nombre: 'Origin Bar (70%)',
+        formato: '70 g',
+        descripcion: '70 g of pure Venezuelan character. Intensity at its finest.',
+      },
+      'leche-45': {
+        nombre: 'Milk Bar (45%)',
+        formato: '70 g',
+        descripcion: '70 g of nostalgia. Creamy, smooth and perfectly balanced.',
+      },
+      'bombones-6': {
+        nombre: 'Box of Bonbons',
+        formato: '6 pieces',
+        descripcion: 'A handcrafted selection, curated with care. The perfect detail to surprise someone.',
+      },
+      'edicion-especial-9': {
+        nombre: 'Special Edition — Signature Box',
+        formato: '9 pieces',
+        descripcion: 'Our signature offering: three textures of Venezuelan cacao, one single story.',
+      },
+    },
+  },
+  pedido: {
+    eyebrow: '06 · Your selection',
+    titulo: "Let's make this moment yours.",
+    cuerpo:
+      "Fill in your details and we'll personally prepare your order confirmation, with the same care we put into our chocolate.",
+    resumenVacio: "You haven't added any products yet.",
+    verColeccion: 'View the collection →',
+    total: '{count} item | {count} items',
+    totalPrefijo: 'Provisional total',
+    confirmacion: {
+      titulo: 'Thank you for your trust.',
+      texto: "We've prepared your request in your email client. As soon as we receive it, we'll get in touch personally to confirm availability, delivery and the final total.",
+      boton: 'Make another request',
+    },
+    form: {
+      nombreLabel: 'Full name',
+      nombrePlaceholder: 'Your name',
+      emailLabel: 'Email address',
+      emailPlaceholder: 'you{arroba}email.com',
+      telefonoLabel: 'Phone',
+      telefonoPlaceholder: '+49 ...',
+      entregaLegend: 'Delivery method',
+      recogida: 'Pickup in store',
+      envio: 'Home delivery',
+      direccionLabel: 'Shipping address',
+      direccionPlaceholder: 'Street, number, city, postal code',
+      pagoLegend: 'Payment method',
+      transferencia: 'Bank transfer',
+      efectivo: 'Cash on delivery',
+      mensajeLabel: 'Message (optional)',
+      mensajePlaceholder: 'A dedication or detail for your order',
+      notaConfianza:
+        "No automatic charge will be made on this page. We'll contact you to confirm availability, delivery details and the final total before payment.",
+      boton: 'Request my order with affection →',
+    },
+    correo: {
+      asunto: 'New order request — Cornalinas',
+      titulo: 'New Cornalinas order request',
+      seleccion: 'Selection:',
+      total: 'Provisional total: {valor}',
+      nombre: 'Name: {valor}',
+      email: 'Email: {valor}',
+      telefono: 'Phone: {valor}',
+      entrega: 'Delivery: {valor}',
+      direccion: 'Address: {valor}',
+      pago: 'Payment: {valor}',
+      mensaje: 'Message: {valor}',
+    },
+  },
+  regalo: {
+    eyebrow: '07 · To gift',
+    titulo: 'Some affections taste like chocolate.',
+    cuerpo: 'Because chocolate is a hug you can eat. Share a little piece of our story with the person you love most.',
+    cta: 'Choose a gift →',
+  },
+  footer: {
+    eyebrow: '08 · With gratitude',
+    titulo: 'Before us, there are their hands.',
+    cuerpo:
+      "The magic of this chocolate begins long before it reaches our workshop. We pay tribute to the women producers, farmers and rural communities in Venezuela who tend the cacao and make its extraordinary quality possible. Without their patience, knowledge and bond with the land, Cornalinas simply wouldn't exist.",
+    cierre: 'Venezuelan chocolate made with affection.',
+    copyright: '© {anio} Cornalinas. All rights reserved.',
+  },
+}

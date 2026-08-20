@@ -1,7 +1,9 @@
 <script setup>
 import { reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCarrito } from '../composables/useCarrito'
 
+const { t } = useI18n()
 const { seleccion, totalArticulos, totalProvisional, vaciarCarrito } = useCarrito()
 
 const form = reactive({
@@ -25,20 +27,20 @@ function construirCuerpoCorreo() {
     (p) => `— ${p.nombre} (${p.formato}) × ${p.cantidad} = ${formatoPrecio(p.precio * p.cantidad)}`
   )
   return [
-    'Nueva solicitud de pedido Cornalinas',
+    t('pedido.correo.titulo'),
     '',
-    'Selección:',
+    t('pedido.correo.seleccion'),
     ...lineas,
     '',
-    `Total provisional: ${formatoPrecio(totalProvisional.value)}`,
+    t('pedido.correo.total', { valor: formatoPrecio(totalProvisional.value) }),
     '',
-    `Nombre: ${form.nombre}`,
-    `Email: ${form.email}`,
-    `Teléfono: ${form.telefono}`,
-    `Entrega: ${form.entrega === 'recogida' ? 'Recogida en tienda' : 'Envío a domicilio'}`,
-    form.entrega === 'envio' ? `Dirección: ${form.direccion}` : null,
-    `Pago: ${form.pago === 'transferencia' ? 'Transferencia bancaria' : 'Efectivo contra entrega'}`,
-    form.mensaje ? `Mensaje: ${form.mensaje}` : null,
+    t('pedido.correo.nombre', { valor: form.nombre }),
+    t('pedido.correo.email', { valor: form.email }),
+    t('pedido.correo.telefono', { valor: form.telefono }),
+    t('pedido.correo.entrega', { valor: form.entrega === 'recogida' ? t('pedido.form.recogida') : t('pedido.form.envio') }),
+    form.entrega === 'envio' ? t('pedido.correo.direccion', { valor: form.direccion }) : null,
+    t('pedido.correo.pago', { valor: form.pago === 'transferencia' ? t('pedido.form.transferencia') : t('pedido.form.efectivo') }),
+    form.mensaje ? t('pedido.correo.mensaje', { valor: form.mensaje }) : null,
   ]
     .filter(Boolean)
     .join('\n')
@@ -47,7 +49,7 @@ function construirCuerpoCorreo() {
 function alEnviar() {
   if (seleccion.value.length === 0) return
 
-  const asunto = encodeURIComponent('Nueva solicitud de pedido — Cornalinas')
+  const asunto = encodeURIComponent(t('pedido.correo.asunto'))
   const cuerpo = encodeURIComponent(construirCuerpoCorreo())
   window.location.href = `mailto:hola@cornalinas.com?subject=${asunto}&body=${cuerpo}`
 
@@ -72,12 +74,10 @@ function nuevaSolicitud() {
 
     <div class="contenedor pedido__grid">
       <div class="pedido__intro">
-        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">06 · Tu selección</p>
-        <h2 v-reveal="{ tipo: 'mascara', delay: 80 }"><span>Hagamos este momento tuyo.</span></h2>
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">{{ t('pedido.eyebrow') }}</p>
+        <h2 v-reveal="{ tipo: 'mascara', delay: 80 }"><span>{{ t('pedido.titulo') }}</span></h2>
         <p v-reveal="{ tipo: 'izquierda', delay: 160 }" class="pedido__cuerpo">
-          Completa tus datos y prepararemos la confirmación de tu pedido
-          personalmente, con el mismo cuidado con el que elaboramos nuestro
-          chocolate.
+          {{ t('pedido.cuerpo') }}
         </p>
 
         <ul class="resumen">
@@ -86,12 +86,12 @@ function nuevaSolicitud() {
             <strong>{{ formatoPrecio(p.precio * p.cantidad) }}</strong>
           </li>
           <li v-if="seleccion.length === 0" class="resumen__vacio">
-            Aún no has añadido productos. <a href="#coleccion">Ver la colección →</a>
+            {{ t('pedido.resumenVacio') }} <a href="#coleccion">{{ t('pedido.verColeccion') }}</a>
           </li>
         </ul>
 
         <div v-if="seleccion.length" class="resumen__total">
-          <span>Total provisional ({{ totalArticulos }} artículos)</span>
+          <span>{{ t('pedido.totalPrefijo') }} ({{ t('pedido.total', totalArticulos) }})</span>
           <strong>{{ formatoPrecio(totalProvisional) }}</strong>
         </div>
       </div>
@@ -99,78 +99,70 @@ function nuevaSolicitud() {
       <div v-reveal="{ tipo: 'derecha', delay: 220 }" class="pedido__panel cristal cristal--claro">
         <transition name="fundido" mode="out-in">
           <div v-if="enviado" key="gracias" class="confirmacion">
-            <h3>Gracias por tu confianza.</h3>
-            <p>
-              Hemos preparado tu solicitud en tu cliente de correo. En cuanto
-              la recibamos, te contactaremos personalmente para confirmar
-              disponibilidad, envío y el total final.
-            </p>
-            <button type="button" class="boton boton--solido" @click="nuevaSolicitud">Hacer otra solicitud</button>
+            <h3>{{ t('pedido.confirmacion.titulo') }}</h3>
+            <p>{{ t('pedido.confirmacion.texto') }}</p>
+            <button type="button" class="boton boton--solido" @click="nuevaSolicitud">{{ t('pedido.confirmacion.boton') }}</button>
           </div>
 
           <form v-else key="formulario" class="formulario" @submit.prevent="alEnviar">
             <div class="campo">
-              <label for="nombre">Nombre completo</label>
-              <input id="nombre" v-model="form.nombre" type="text" required placeholder="Tu nombre" />
+              <label for="nombre">{{ t('pedido.form.nombreLabel') }}</label>
+              <input id="nombre" v-model="form.nombre" type="text" required :placeholder="t('pedido.form.nombrePlaceholder')" />
             </div>
 
             <div class="campo-grupo">
               <div class="campo">
-                <label for="email">Correo electrónico</label>
-                <input id="email" v-model="form.email" type="email" required placeholder="tu@correo.com" />
+                <label for="email">{{ t('pedido.form.emailLabel') }}</label>
+                <input id="email" v-model="form.email" type="email" required :placeholder="t('pedido.form.emailPlaceholder', { arroba: '@' })" />
               </div>
               <div class="campo">
-                <label for="telefono">Teléfono</label>
-                <input id="telefono" v-model="form.telefono" type="tel" required placeholder="+49 ..." />
+                <label for="telefono">{{ t('pedido.form.telefonoLabel') }}</label>
+                <input id="telefono" v-model="form.telefono" type="tel" required :placeholder="t('pedido.form.telefonoPlaceholder')" />
               </div>
             </div>
 
             <fieldset class="campo">
-              <legend>Método de entrega</legend>
+              <legend>{{ t('pedido.form.entregaLegend') }}</legend>
               <div class="opciones">
                 <label class="opcion">
                   <input v-model="form.entrega" type="radio" value="recogida" />
-                  Recogida en tienda
+                  {{ t('pedido.form.recogida') }}
                 </label>
                 <label class="opcion">
                   <input v-model="form.entrega" type="radio" value="envio" />
-                  Envío a domicilio
+                  {{ t('pedido.form.envio') }}
                 </label>
               </div>
             </fieldset>
 
             <div v-if="form.entrega === 'envio'" class="campo">
-              <label for="direccion">Dirección de envío</label>
-              <input id="direccion" v-model="form.direccion" type="text" required placeholder="Calle, número, ciudad, código postal" />
+              <label for="direccion">{{ t('pedido.form.direccionLabel') }}</label>
+              <input id="direccion" v-model="form.direccion" type="text" required :placeholder="t('pedido.form.direccionPlaceholder')" />
             </div>
 
             <fieldset class="campo">
-              <legend>Método de pago</legend>
+              <legend>{{ t('pedido.form.pagoLegend') }}</legend>
               <div class="opciones">
                 <label class="opcion">
                   <input v-model="form.pago" type="radio" value="transferencia" />
-                  Transferencia bancaria
+                  {{ t('pedido.form.transferencia') }}
                 </label>
                 <label class="opcion">
                   <input v-model="form.pago" type="radio" value="efectivo" />
-                  Efectivo contra entrega
+                  {{ t('pedido.form.efectivo') }}
                 </label>
               </div>
             </fieldset>
 
             <div class="campo">
-              <label for="mensaje">Mensaje (opcional)</label>
-              <textarea id="mensaje" v-model="form.mensaje" rows="3" placeholder="Alguna dedicatoria o detalle para tu pedido"></textarea>
+              <label for="mensaje">{{ t('pedido.form.mensajeLabel') }}</label>
+              <textarea id="mensaje" v-model="form.mensaje" rows="3" :placeholder="t('pedido.form.mensajePlaceholder')"></textarea>
             </div>
 
-            <p class="nota-confianza">
-              No se realizará ningún cobro automático en esta página. Te
-              contactaremos para confirmar disponibilidad, detalles de envío y
-              el total final antes del pago.
-            </p>
+            <p class="nota-confianza">{{ t('pedido.form.notaConfianza') }}</p>
 
             <button type="submit" class="boton boton--solido" :disabled="seleccion.length === 0">
-              Solicitar mi pedido con afecto →
+              {{ t('pedido.form.boton') }}
             </button>
           </form>
         </transition>

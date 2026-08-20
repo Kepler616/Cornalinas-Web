@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import monograma from '../assets/brand/monograma-crema.png'
 import fondo from '../assets/craft/temperado-01.jpg'
 import DivisorOla from './DivisorOla.vue'
 
+const { t } = useI18n()
 const offset = ref(0)
 
 function alScroll() {
@@ -25,24 +27,22 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     <img :src="monograma" alt="" aria-hidden="true" class="hero__monograma" />
 
     <div class="hero__contenido contenedor">
-      <p class="eyebrow eyebrow--claro hero__anim" style="animation-delay: 0.2s">Chocolate venezolano · Hecho en Berlín</p>
+      <p class="eyebrow eyebrow--claro hero__anim" style="animation-delay: 0.2s">{{ t('hero.eyebrow') }}</p>
       <h1 class="hero__titulo">
-        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.4s">Un viaje a casa,</span></span>
-        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.6s">fundido en chocolate.</span></span>
+        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.4s">{{ t('hero.titulo1') }}</span></span>
+        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.6s">{{ t('hero.titulo2') }}</span></span>
       </h1>
       <p class="hero__lema hero__anim" style="animation-delay: 0.9s">
-        El cacao viaja con nosotros; los recuerdos se transforman. Descubre un
-        origen con infinitas formas de sentir, elaborado a mano y con afecto
-        en el corazón de Alemania.
+        {{ t('hero.lema') }}
       </p>
       <div class="hero__acciones hero__anim" style="animation-delay: 1.1s">
-        <a href="#historia" class="boton boton--solido">Descubre nuestro origen</a>
+        <a href="#historia" class="boton boton--solido">{{ t('hero.cta') }}</a>
       </div>
     </div>
 
-    <a href="#historia" class="hero__scroll" aria-label="Bajar a nuestra historia">
+    <a href="#historia" class="hero__scroll" :aria-label="t('hero.scrollAria')">
       <span></span>
-      Deslizar
+      {{ t('hero.scroll') }}
     </a>
 
     <DivisorOla class="hero__divisor" color="var(--papel)" />

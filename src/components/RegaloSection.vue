@@ -1,7 +1,9 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 import IconoCornalinas from './IconoCornalinas.vue'
 import { useParallax } from '../composables/useParallax'
 
+const { t } = useI18n()
 const { el: marca, desplazamiento } = useParallax(0.18)
 </script>
 
@@ -12,14 +14,11 @@ const { el: marca, desplazamiento } = useParallax(0.18)
     </div>
 
     <div v-reveal="{ tipo: 'escala' }" class="contenedor regalo__caja cristal cristal--oscuro">
-      <p class="eyebrow eyebrow--claro">07 · Para regalar</p>
-      <h2 v-reveal="{ tipo: 'mascara' }"><span>Hay afectos que saben a chocolate.</span></h2>
-      <p>
-        Porque un chocolate es un abrazo que se puede comer. Comparte un
-        pedacito de nuestra historia con quien más quieres.
-      </p>
+      <p class="eyebrow eyebrow--claro">{{ t('regalo.eyebrow') }}</p>
+      <h2 v-reveal="{ tipo: 'mascara' }"><span>{{ t('regalo.titulo') }}</span></h2>
+      <p>{{ t('regalo.cuerpo') }}</p>
       <a href="#coleccion" class="boton boton--claro">
-        Elegir un detalle para regalar →
+        {{ t('regalo.cta') }}
       </a>
     </div>
   </section>

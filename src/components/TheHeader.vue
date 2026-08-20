@@ -1,18 +1,21 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import logoCrema from '../assets/brand/logotipo-crema.png'
 import logoRojo from '../assets/brand/logotipo-rojo.png'
 import { useCarrito } from '../composables/useCarrito'
+import SelectorIdioma from './SelectorIdioma.vue'
 
+const { t } = useI18n()
 const { totalArticulos } = useCarrito()
 
 const scrolled = ref(false)
 const abierto = ref(false)
 
-const enlaces = [
-  { texto: 'Historia', destino: '#historia' },
-  { texto: 'Colección', destino: '#coleccion' },
-]
+const enlaces = computed(() => [
+  { texto: t('nav.historia'), destino: '#historia' },
+  { texto: t('nav.coleccion'), destino: '#coleccion' },
+])
 
 function alScroll() {
   scrolled.value = window.scrollY > 40
@@ -38,12 +41,13 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
           {{ enlace.texto }}
         </a>
         <a href="#pedido" class="nav__pedido">
-          Pedido
+          {{ t('nav.pedido') }}
           <span class="nav__contador" :class="{ activo: totalArticulos > 0 }">{{ totalArticulos }}</span>
         </a>
+        <SelectorIdioma :oscuro="scrolled" />
       </nav>
 
-      <button class="nav__hamburguesa" :class="{ activa: abierto, oscura: scrolled }" @click="abierto = !abierto" aria-label="Abrir menú">
+      <button class="nav__hamburguesa" :class="{ activa: abierto, oscura: scrolled }" @click="abierto = !abierto" :aria-label="t('nav.abrirMenu')">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -53,7 +57,8 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
         <a v-for="enlace in enlaces" :key="enlace.destino" :href="enlace.destino" @click="cerrarMenu">
           {{ enlace.texto }}
         </a>
-        <a href="#pedido" @click="cerrarMenu">Pedido ({{ totalArticulos }})</a>
+        <a href="#pedido" @click="cerrarMenu">{{ t('nav.pedido') }} ({{ totalArticulos }})</a>
+        <SelectorIdioma oscuro />
       </nav>
     </transition>
   </header>

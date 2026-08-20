@@ -1,0 +1,151 @@
+export default {
+  meta: {
+    title: 'Cornalinas · Handgefertigte venezolanische Schokolade aus Berlin',
+    description:
+      'Entdecke Cornalinas, handwerkliche Bean-to-Bar-Schokolade, die den Reichtum venezolanischen Kakaos mit dem Chocolatier-Handwerk in Berlin vereint. Fordere noch heute deine Auswahl an.',
+  },
+  nav: {
+    historia: 'Geschichte',
+    coleccion: 'Kollektion',
+    pedido: 'Bestellung',
+    abrirMenu: 'Menü öffnen',
+  },
+  hero: {
+    eyebrow: 'Venezolanische Schokolade · Hergestellt in Berlin',
+    titulo1: 'Eine Reise nach Hause,',
+    titulo2: 'geschmolzen in Schokolade.',
+    lema: 'Der Kakao reist mit uns; Erinnerungen verwandeln sich. Entdecke einen Ursprung mit unendlich vielen Arten zu fühlen, von Hand gefertigt mit Zuneigung im Herzen Deutschlands.',
+    cta: 'Entdecke unseren Ursprung',
+    scrollAria: 'Zu unserer Geschichte scrollen',
+    scroll: 'Scrollen',
+  },
+  historia: {
+    eyebrow: '02 · Unsere Geschichte',
+    titulo: 'Aus Venezuela, mit dem Herzen in den Händen.',
+    cuerpo:
+      'Cornalinas ist mehr als eine Chocolaterie; sie ist unsere Brücke der Verbindung. Wir entstanden aus der tiefen Sehnsucht nach den Aromen unserer Heimat und dem Wunsch, sie zu teilen. Hier vereinen wir unsere venezolanischen Wurzeln, das sorgfältige Handwerk und ein neues Leben in Deutschland. Jedes Stück, das wir schaffen, trägt eine Erinnerung: ein Familientreffen, ein unerwartetes Geschenk oder die süßeste Art, „Ich bin bei dir" zu sagen.',
+    venezuela: 'Venezuela',
+    berlin: 'Berlin',
+    pie: 'Der Kakao reist; die Zuneigung bleibt.',
+  },
+  proceso: {
+    eyebrow: '03 · Bean-to-Bar-Prozess',
+    titulo: 'Von der Bohne zur Tafel: Respekt vor dem Ursprung.',
+    cuerpo:
+      'Wir glauben an die Bean-to-Bar-Bewegung, denn nur so lässt sich der wahre Charakter des Kakaos ehren. Wir begleiten jede Bohne von ihrem Ursprung bis in deine Hände und arbeiten in kleinen Chargen, um jedes Detail zu pflegen.',
+    pasos: [
+      { titulo: 'Auswahl', texto: 'Wir wählen geduldig die besten Bohnen unserer Heimat aus.' },
+      { titulo: 'Rösten', texto: 'Wir wecken verborgene Aromen und Nuancen mit präziser Hitze.' },
+      { titulo: 'Verfeinerung', texto: 'Wir erzielen seidige Texturen, die auf der Zunge perfekt zergehen.' },
+      { titulo: 'Temperieren', texto: 'Der Meistergriff für einen makellosen Glanz und den perfekten Knack.' },
+    ],
+  },
+  materia: {
+    eyebrow: '05 · Rohstoff',
+    titulo: 'Venezuela in jeder Geschmacksnote.',
+    cuerpo:
+      'Unser Kakao ist der unbestrittene Hauptdarsteller. Komplex, aromatisch und voller Leben. Ein Rohstoff, der direkt von seiner Heimat und dem überlieferten Wissen derer erzählt, die ihn anbauen.',
+    foto: 'Handwerkliches Temperieren der Cornalinas-Schokolade',
+    rasgos: [
+      { etiqueta: 'Herkunft', valor: 'Venezuela' },
+      { etiqueta: 'Profil', valor: 'Fruchtig · Blumig · Tiefgründig' },
+      { etiqueta: 'Verfahren', valor: 'Handwerklich in kleinen Chargen' },
+    ],
+  },
+  coleccion: {
+    eyebrow: '04 · Unsere Kollektion',
+    titulo: 'Kleine Kostbarkeiten. Große Gefühle.',
+    cuerpo: 'Entdecke unsere Auswahl und gestalte deinen eigenen Cornalinas-Moment.',
+    notaPrecios: 'Die Preise dieser ersten Ausgabe sind vorläufig.',
+    insignia: 'Limitierte Edition',
+    quitar: 'Eine Einheit entfernen',
+    anadir: 'Eine Einheit hinzufügen',
+    anterior: 'Vorheriges Produkt',
+    siguiente: 'Nächstes Produkt',
+    productos: {
+      'origen-70': {
+        nombre: 'Ursprungstafel (70 %)',
+        formato: '70 g',
+        descripcion: '70 g puren venezolanischen Charakters. Intensität in ihrer schönsten Form.',
+      },
+      'leche-45': {
+        nombre: 'Milchtafel (45 %)',
+        formato: '70 g',
+        descripcion: '70 g Nostalgie. Cremig, mild und perfekt ausgewogen.',
+      },
+      'bombones-6': {
+        nombre: 'Pralinenbox',
+        formato: '6 Stück',
+        descripcion: 'Eine von Hand kuratierte, handwerkliche Auswahl. Das perfekte Detail, um zu überraschen.',
+      },
+      'edicion-especial-9': {
+        nombre: 'Sonderedition — Signature Box',
+        formato: '9 Stück',
+        descripcion: 'Unser Aushängeschild: drei Texturen venezolanischen Kakaos, eine einzige Geschichte.',
+      },
+    },
+  },
+  pedido: {
+    eyebrow: '06 · Deine Auswahl',
+    titulo: 'Lass uns diesen Moment zu deinem machen.',
+    cuerpo:
+      'Vervollständige deine Angaben und wir bereiten die Bestätigung deiner Bestellung persönlich vor, mit derselben Sorgfalt, mit der wir unsere Schokolade herstellen.',
+    resumenVacio: 'Du hast noch keine Produkte hinzugefügt.',
+    verColeccion: 'Zur Kollektion →',
+    total: '{count} Artikel',
+    totalPrefijo: 'Vorläufige Summe',
+    confirmacion: {
+      titulo: 'Danke für dein Vertrauen.',
+      texto: 'Wir haben deine Anfrage in deinem E-Mail-Programm vorbereitet. Sobald wir sie erhalten, melden wir uns persönlich bei dir, um Verfügbarkeit, Lieferung und die endgültige Summe zu bestätigen.',
+      boton: 'Eine weitere Anfrage stellen',
+    },
+    form: {
+      nombreLabel: 'Vollständiger Name',
+      nombrePlaceholder: 'Dein Name',
+      emailLabel: 'E-Mail-Adresse',
+      emailPlaceholder: 'du{arroba}email.com',
+      telefonoLabel: 'Telefon',
+      telefonoPlaceholder: '+49 …',
+      entregaLegend: 'Liefermethode',
+      recogida: 'Abholung im Laden',
+      envio: 'Lieferung nach Hause',
+      direccionLabel: 'Lieferadresse',
+      direccionPlaceholder: 'Straße, Hausnummer, Stadt, Postleitzahl',
+      pagoLegend: 'Zahlungsmethode',
+      transferencia: 'Banküberweisung',
+      efectivo: 'Barzahlung bei Lieferung',
+      mensajeLabel: 'Nachricht (optional)',
+      mensajePlaceholder: 'Eine Widmung oder ein Detail für deine Bestellung',
+      notaConfianza:
+        'Auf dieser Seite erfolgt keine automatische Abbuchung. Wir melden uns bei dir, um Verfügbarkeit, Lieferdetails und die endgültige Summe vor der Zahlung zu bestätigen.',
+      boton: 'Meine Bestellung mit Zuneigung aufgeben →',
+    },
+    correo: {
+      asunto: 'Neue Bestellanfrage — Cornalinas',
+      titulo: 'Neue Cornalinas-Bestellanfrage',
+      seleccion: 'Auswahl:',
+      total: 'Vorläufige Summe: {valor}',
+      nombre: 'Name: {valor}',
+      email: 'E-Mail: {valor}',
+      telefono: 'Telefon: {valor}',
+      entrega: 'Lieferung: {valor}',
+      direccion: 'Adresse: {valor}',
+      pago: 'Zahlung: {valor}',
+      mensaje: 'Nachricht: {valor}',
+    },
+  },
+  regalo: {
+    eyebrow: '07 · Zum Verschenken',
+    titulo: 'Manche Zuneigung schmeckt nach Schokolade.',
+    cuerpo: 'Denn Schokolade ist eine Umarmung, die man essen kann. Teile ein kleines Stück unserer Geschichte mit den Menschen, die du am meisten liebst.',
+    cta: 'Ein Geschenk auswählen →',
+  },
+  footer: {
+    eyebrow: '08 · Mit Dankbarkeit',
+    titulo: 'Vor uns stehen ihre Hände.',
+    cuerpo:
+      'Die Magie dieser Schokolade beginnt lange bevor sie unsere Werkstatt erreicht. Wir würdigen die Erzeugerinnen, Landwirte und ländlichen Gemeinschaften in Venezuela, die den Kakao pflegen und seine außergewöhnliche Qualität möglich machen. Ohne ihre Geduld, ihr Wissen und ihre Verbundenheit mit dem Land würde es Cornalinas schlicht nicht geben.',
+    cierre: 'Venezolanische Schokolade, mit Zuneigung gemacht.',
+    copyright: '© {anio} Cornalinas. Alle Rechte vorbehalten.',
+  },
+}

@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -11,8 +13,9 @@ import cajaDiagonal from '../assets/product/caja-diagonal.png'
 import cajaLibro from '../assets/product/caja-libro.png'
 import tableta from '../assets/product/tableta.jpg'
 
+const { t, tm } = useI18n()
 const modulos = [Navigation]
-const { productos, cantidades, incrementar, decrementar } = useCarrito()
+const { productos: catalogo, cantidades, incrementar, decrementar } = useCarrito()
 
 const medios = {
   'origen-70': { tipo: 'foto', src: tableta },
@@ -20,6 +23,14 @@ const medios = {
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
   'edicion-especial-9': { tipo: 'foto', src: cajaLibro },
 }
+
+const productos = computed(() => {
+  const traducciones = tm('coleccion.productos')
+  return catalogo.map((producto) => ({
+    ...producto,
+    ...(traducciones[producto.id] || {}),
+  }))
+})
 </script>
 
 <template>
@@ -29,13 +40,13 @@ const medios = {
 
     <div class="contenedor">
       <div class="coleccion__cabecera">
-        <p v-reveal class="eyebrow">04 · Nuestra colección</p>
+        <p v-reveal class="eyebrow">{{ t('coleccion.eyebrow') }}</p>
         <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="coleccion__titulo">
-          <span>Pequeñas delicadezas. Grandes emociones.</span>
+          <span>{{ t('coleccion.titulo') }}</span>
         </h2>
         <p v-reveal="{ delay: 180 }" class="coleccion__cuerpo">
-          Explora nuestra selección y construye tu propio momento Cornalinas.
-          <em>Los precios de esta primera propuesta son provisionales.</em>
+          {{ t('coleccion.cuerpo') }}
+          <em>{{ t('coleccion.notaPrecios') }}</em>
         </p>
       </div>
     </div>
@@ -59,7 +70,7 @@ const medios = {
           class="tarjeta cristal cristal--claro"
           :class="{ 'tarjeta--destacada': producto.destacado }"
         >
-          <span v-if="producto.destacado" class="tarjeta__insignia">Edición limitada</span>
+          <span v-if="producto.destacado" class="tarjeta__insignia">{{ t('coleccion.insignia') }}</span>
 
           <div class="tarjeta__medio">
             <img v-if="medios[producto.id].tipo === 'foto'" :src="medios[producto.id].src" :alt="producto.nombre" />
@@ -75,9 +86,9 @@ const medios = {
               <span class="tarjeta__precio">{{ producto.precio.toFixed(2).replace('.', ',') }} €</span>
 
               <div class="contador">
-                <button type="button" @click="decrementar(producto.id)" :disabled="!cantidades[producto.id]" aria-label="Quitar una unidad">−</button>
+                <button type="button" @click="decrementar(producto.id)" :disabled="!cantidades[producto.id]" :aria-label="t('coleccion.quitar')">−</button>
                 <span>{{ cantidades[producto.id] || 0 }}</span>
-                <button type="button" @click="incrementar(producto.id)" aria-label="Añadir una unidad">+</button>
+                <button type="button" @click="incrementar(producto.id)" :aria-label="t('coleccion.anadir')">+</button>
               </div>
             </div>
           </div>
@@ -86,8 +97,8 @@ const medios = {
     </Swiper>
 
     <div class="coleccion__navegacion contenedor">
-      <button class="coleccion__flecha coleccion__flecha--prev" aria-label="Producto anterior">←</button>
-      <button class="coleccion__flecha coleccion__flecha--next" aria-label="Producto siguiente">→</button>
+      <button class="coleccion__flecha coleccion__flecha--prev" :aria-label="t('coleccion.anterior')">←</button>
+      <button class="coleccion__flecha coleccion__flecha--next" :aria-label="t('coleccion.siguiente')">→</button>
     </div>
   </section>
 </template>

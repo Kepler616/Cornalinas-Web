@@ -1,15 +1,22 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import IconoCornalinas from './IconoCornalinas.vue'
 import foto from '../assets/craft/temperado-02.jpg'
 import { useParallax } from '../composables/useParallax'
 
+const { t, tm } = useI18n()
 const { el: marco, desplazamiento } = useParallax(0.12)
 
-const rasgos = [
-  { icono: 'hoja', etiqueta: 'Origen', valor: 'Venezuela' },
-  { icono: 'grano', etiqueta: 'Perfil', valor: 'Frutal · Floral · Profundo' },
-  { icono: 'remolino', etiqueta: 'Proceso', valor: 'Artesanal en pequeñas partidas' },
-]
+const iconos = ['hoja', 'grano', 'remolino']
+
+const rasgos = computed(() =>
+  tm('materia.rasgos').map((rasgo, i) => ({
+    icono: iconos[i],
+    etiqueta: rasgo.etiqueta,
+    valor: rasgo.valor,
+  }))
+)
 </script>
 
 <template>
@@ -20,20 +27,18 @@ const rasgos = [
       <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco">
         <img
           :src="foto"
-          alt="Temperado artesanal del chocolate Cornalinas"
+          :alt="t('materia.foto')"
           :style="{ transform: `translateY(${desplazamiento}px) scale(1.15)` }"
         />
       </div>
 
       <div class="materia__texto">
-        <p v-reveal="{ tipo: 'derecha' }" class="eyebrow">05 · Materia prima</p>
+        <p v-reveal="{ tipo: 'derecha' }" class="eyebrow">{{ t('materia.eyebrow') }}</p>
         <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="materia__titulo">
-          <span>Venezuela en cada nota de sabor.</span>
+          <span>{{ t('materia.titulo') }}</span>
         </h2>
         <p v-reveal="{ tipo: 'derecha', delay: 160 }" class="materia__cuerpo">
-          Nuestro cacao es el protagonista indiscutible. Complejo, aromático y
-          lleno de vida. Es una materia prima que habla directamente de su
-          tierra y de la sabiduría ancestral de quienes la cultivan.
+          {{ t('materia.cuerpo') }}
         </p>
 
         <ul class="materia__lista">

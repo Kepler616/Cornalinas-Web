@@ -1,6 +1,8 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 import monograma from '../assets/brand/monograma-crema.png'
 
+const { t } = useI18n()
 const anio = 2026
 const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f']
 </script>
@@ -12,23 +14,17 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
     <div class="contenedor pie__tributo cristal cristal--oscuro" v-reveal="{ tipo: 'escala' }">
       <img :src="monograma" alt="Cornalinas" class="pie__monograma" />
-      <p class="eyebrow eyebrow--claro">08 · Con gratitud</p>
-      <h2>Antes que nosotros, están sus manos.</h2>
-      <p class="pie__cuerpo">
-        La magia de este chocolate comienza mucho antes de llegar a nuestro
-        taller. Rendimos homenaje a las productoras, agricultores y
-        comunidades campesinas en Venezuela que cuidan el cacao y hacen
-        posible su extraordinaria calidad. Sin su paciencia, conocimiento y
-        vínculo con la tierra, Cornalinas simplemente no existiría.
-      </p>
-      <p class="pie__cierre">Chocolate venezolano hecho con afecto.</p>
+      <p class="eyebrow eyebrow--claro">{{ t('footer.eyebrow') }}</p>
+      <h2>{{ t('footer.titulo') }}</h2>
+      <p class="pie__cuerpo">{{ t('footer.cuerpo') }}</p>
+      <p class="pie__cierre">{{ t('footer.cierre') }}</p>
     </div>
 
     <div class="contenedor pie__linea">
       <nav class="pie__enlaces">
-        <a href="#historia">Historia</a>
-        <a href="#coleccion">Colección</a>
-        <a href="#pedido">Pedido</a>
+        <a href="#historia">{{ t('nav.historia') }}</a>
+        <a href="#coleccion">{{ t('nav.coleccion') }}</a>
+        <a href="#pedido">{{ t('nav.pedido') }}</a>
       </nav>
 
       <ul class="pie__paleta cristal cristal--oscuro" aria-hidden="true">
@@ -38,7 +34,7 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
     <div class="contenedor pie__base">
       <p>hola@cornalinas.com</p>
-      <p>© {{ anio }} Cornalinas. Todos los derechos reservados.</p>
+      <p>{{ t('footer.copyright', { anio }) }}</p>
     </div>
   </footer>
 </template>
