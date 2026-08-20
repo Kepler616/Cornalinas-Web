@@ -144,6 +144,8 @@ const medios = {
 }
 
 .coleccion__swiper {
+  max-width: var(--ancho-max);
+  margin-inline: auto;
   padding: 0.5rem clamp(1.5rem, 5vw, 4rem) 1rem;
 }
 
@@ -182,15 +184,12 @@ const medios = {
 }
 
 .tarjeta__medio {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
   background: linear-gradient(160deg, var(--papel-sombra), var(--papel-alto));
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.tarjeta__medio {
-  overflow: hidden;
 }
 
 .tarjeta__medio img {
@@ -212,34 +211,34 @@ const medios = {
 }
 
 .tarjeta__cuerpo {
-  padding: 1.6rem 1.6rem 1.8rem;
+  padding: 1.2rem 1.25rem 1.35rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .tarjeta__formato {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--oro);
 }
 
 .tarjeta__cuerpo h3 {
-  margin-top: 0.5rem;
-  font-size: 1.4rem;
+  margin-top: 0.35rem;
+  font-size: 1.15rem;
   line-height: 1.2;
 }
 
 .tarjeta__descripcion {
-  margin-top: 0.8rem;
-  font-size: 0.92rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
   color: var(--cacao-suave);
   flex: 1;
 }
 
 .tarjeta__pie {
-  margin-top: 1.6rem;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -248,27 +247,27 @@ const medios = {
 
 .tarjeta__precio {
   font-family: var(--fuente-display);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--cacao);
 }
 
 .contador {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.7rem;
   border: 1px solid var(--cacao);
   border-radius: 999px;
-  padding: 0.3rem 0.5rem;
+  padding: 0.2rem 0.4rem;
 }
 
 .contador button {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: none;
   background: transparent;
   color: var(--cacao);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   line-height: 1;
   transition: background 0.3s ease, color 0.3s ease;
 }
