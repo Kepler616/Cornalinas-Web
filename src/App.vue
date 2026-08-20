@@ -19,8 +19,8 @@ import TheFooter from './components/TheFooter.vue'
     <HeroSection />
     <HistoriaSection />
     <ProcesoSection />
-    <MateriaPrimaSection />
     <ColeccionSection />
+    <MateriaPrimaSection />
     <PedidoSection />
     <RegaloSection />
   </main>
