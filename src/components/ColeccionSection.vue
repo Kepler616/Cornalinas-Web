@@ -27,15 +27,17 @@ const medios = {
     <span class="orbe orbe--rojo orbe--vagar2 coleccion__orbe1" style="animation-delay: -22s" aria-hidden="true"></span>
     <span class="orbe orbe--oro orbe--vagar4 coleccion__orbe2" style="animation-delay: -9s" aria-hidden="true"></span>
 
-    <div class="contenedor coleccion__cabecera">
-      <p v-reveal class="eyebrow">05 · Nuestra colección</p>
-      <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="coleccion__titulo">
-        <span>Pequeñas delicadezas. Grandes emociones.</span>
-      </h2>
-      <p v-reveal="{ delay: 180 }" class="coleccion__cuerpo">
-        Explora nuestra selección y construye tu propio momento Cornalinas.
-        <em>Los precios de esta primera propuesta son provisionales.</em>
-      </p>
+    <div class="contenedor">
+      <div class="coleccion__cabecera">
+        <p v-reveal class="eyebrow">05 · Nuestra colección</p>
+        <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="coleccion__titulo">
+          <span>Pequeñas delicadezas. Grandes emociones.</span>
+        </h2>
+        <p v-reveal="{ delay: 180 }" class="coleccion__cuerpo">
+          Explora nuestra selección y construye tu propio momento Cornalinas.
+          <em>Los precios de esta primera propuesta son provisionales.</em>
+        </p>
+      </div>
     </div>
 
     <Swiper
@@ -121,19 +123,18 @@ const medios = {
 }
 
 .coleccion__cabecera {
-  max-width: 42rem;
-  margin-inline: 0;
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  max-width: 36rem;
+  margin-bottom: clamp(2rem, 4.5vw, 3rem);
 }
 
 .coleccion__titulo {
-  margin-top: 1rem;
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  margin-top: 0.7rem;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
 }
 
 .coleccion__cuerpo {
-  margin-top: 1.2rem;
-  font-size: 1.05rem;
+  margin-top: 0.9rem;
+  font-size: 0.98rem;
   color: var(--cacao-suave);
 }
 
