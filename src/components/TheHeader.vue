@@ -88,7 +88,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 }
 
 .nav__marca img {
-  height: 26px;
+  height: 38px;
   width: auto;
 }
 
