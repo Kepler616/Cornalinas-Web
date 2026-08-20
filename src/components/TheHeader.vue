@@ -1,15 +1,17 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import logoCrema from '../assets/brand/logotipo-crema.png'
+import logoRojo from '../assets/brand/logotipo-rojo.png'
+import { useCarrito } from '../composables/useCarrito'
+
+const { totalArticulos } = useCarrito()
 
 const scrolled = ref(false)
 const abierto = ref(false)
 
 const enlaces = [
+  { texto: 'Historia', destino: '#historia' },
   { texto: 'Colección', destino: '#coleccion' },
-  { texto: 'El Oficio', destino: '#oficio' },
-  { texto: 'Formatos', destino: '#formatos' },
-  { texto: 'Contacto', destino: '#contacto' },
 ]
 
 function alScroll() {
@@ -28,16 +30,20 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   <header class="nav" :class="{ 'nav--solida': scrolled }">
     <div class="nav__interior contenedor">
       <a href="#inicio" class="nav__marca" @click="cerrarMenu">
-        <img :src="logoCrema" alt="Cornalinas" />
+        <img :src="scrolled ? logoRojo : logoCrema" alt="Cornalinas" />
       </a>
 
       <nav class="nav__enlaces">
         <a v-for="enlace in enlaces" :key="enlace.destino" :href="enlace.destino">
           {{ enlace.texto }}
         </a>
+        <a href="#pedido" class="nav__pedido">
+          Pedido
+          <span class="nav__contador" :class="{ activo: totalArticulos > 0 }">{{ totalArticulos }}</span>
+        </a>
       </nav>
 
-      <button class="nav__hamburguesa" :class="{ activa: abierto }" @click="abierto = !abierto" aria-label="Abrir menú">
+      <button class="nav__hamburguesa" :class="{ activa: abierto, oscura: scrolled }" @click="abierto = !abierto" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -47,6 +53,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
         <a v-for="enlace in enlaces" :key="enlace.destino" :href="enlace.destino" @click="cerrarMenu">
           {{ enlace.texto }}
         </a>
+        <a href="#pedido" @click="cerrarMenu">Pedido ({{ totalArticulos }})</a>
       </nav>
     </transition>
   </header>
@@ -57,15 +64,15 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 100;
-  padding-block: 1.4rem;
+  padding-block: 1.5rem;
   transition: background 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
 }
 
 .nav--solida {
-  background: rgba(20, 5, 5, 0.86);
+  background: rgba(246, 234, 215, 0.92);
   backdrop-filter: blur(14px);
   padding-block: 0.9rem;
-  box-shadow: 0 1px 0 rgba(252, 213, 191, 0.08);
+  box-shadow: 0 1px 0 rgba(58, 31, 20, 0.1);
 }
 
 .nav__interior {
@@ -81,7 +88,12 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 
 .nav__enlaces {
   display: flex;
+  align-items: center;
   gap: 2.6rem;
+}
+
+.nav--solida .nav__enlaces a {
+  color: var(--cacao);
 }
 
 .nav__enlaces a {
@@ -89,10 +101,10 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--crema-suave);
-  opacity: 0.82;
+  opacity: 0.9;
   position: relative;
   padding-bottom: 4px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .nav__enlaces a::after {
@@ -102,16 +114,38 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   right: 100%;
   bottom: 0;
   height: 1px;
-  background: var(--crema);
+  background: currentColor;
   transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav__enlaces a:hover {
-  opacity: 1;
 }
 
 .nav__enlaces a:hover::after {
   right: 0;
+}
+
+.nav__pedido {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__contador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: inherit;
+  font-size: 0.68rem;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.nav__contador.activo {
+  background: var(--rojo);
+  color: var(--blanco);
+  transform: scale(1.08);
 }
 
 .nav__hamburguesa {
@@ -129,7 +163,11 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 .nav__hamburguesa span {
   height: 1px;
   background: var(--crema-suave);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+.nav__hamburguesa.oscura span {
+  background: var(--cacao);
 }
 
 .nav__hamburguesa.activa span:nth-child(1) {
@@ -158,7 +196,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     flex-direction: column;
     gap: 1.4rem;
     padding: 1.6rem clamp(1.5rem, 5vw, 4rem) 2.2rem;
-    background: rgba(20, 5, 5, 0.97);
+    background: rgba(58, 31, 20, 0.97);
   }
   .nav__movil a {
     font-family: var(--fuente-display);

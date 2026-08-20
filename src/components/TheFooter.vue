@@ -2,19 +2,30 @@
 import monograma from '../assets/brand/monograma-crema.png'
 
 const anio = 2026
-const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646']
+const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f']
 </script>
 
 <template>
   <footer class="pie">
-    <div class="contenedor pie__interior">
-      <img :src="monograma" alt="Cornalinas" class="pie__monograma" />
+    <div class="contenedor pie__tributo">
+      <img v-reveal :src="monograma" alt="Cornalinas" class="pie__monograma" />
+      <p v-reveal="{ delay: 80 }" class="eyebrow eyebrow--claro">08 · Con gratitud</p>
+      <h2 v-reveal="{ delay: 140 }">Antes que nosotros, están sus manos.</h2>
+      <p v-reveal="{ delay: 200 }" class="pie__cuerpo">
+        La magia de este chocolate comienza mucho antes de llegar a nuestro
+        taller. Rendimos homenaje a las productoras, agricultores y
+        comunidades campesinas en Venezuela que cuidan el cacao y hacen
+        posible su extraordinaria calidad. Sin su paciencia, conocimiento y
+        vínculo con la tierra, Cornalinas simplemente no existiría.
+      </p>
+      <p v-reveal="{ delay: 260 }" class="pie__cierre">Chocolate venezolano hecho con afecto.</p>
+    </div>
 
+    <div class="contenedor pie__linea">
       <nav class="pie__enlaces">
+        <a href="#historia">Historia</a>
         <a href="#coleccion">Colección</a>
-        <a href="#oficio">El Oficio</a>
-        <a href="#formatos">Formatos</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#pedido">Pedido</a>
       </nav>
 
       <ul class="pie__paleta" aria-hidden="true">
@@ -22,9 +33,9 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646']
       </ul>
     </div>
 
-    <div class="contenedor pie__linea">
+    <div class="contenedor pie__base">
+      <p>hola@cornalinas.com</p>
       <p>© {{ anio }} Cornalinas. Todos los derechos reservados.</p>
-      <p>Hecho a mano, en lotes pequeños.</p>
     </div>
   </footer>
 </template>
@@ -32,29 +43,59 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646']
 <style scoped>
 .pie {
   background: var(--negro);
-  border-top: 1px solid rgba(252, 213, 191, 0.12);
-  padding-block: 3rem 2rem;
+  color: var(--crema-suave);
+  padding-block: var(--espacio-seccion) 2.4rem;
 }
 
-.pie__interior {
+.pie__tributo {
+  max-width: 44rem;
+  text-align: center;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pie__monograma {
+  width: 44px;
+  margin-bottom: 1.6rem;
+  opacity: 0.85;
+}
+
+.pie__tributo h2 {
+  margin-top: 1rem;
+  color: var(--blanco);
+  font-size: clamp(2rem, 4.6vw, 3rem);
+}
+
+.pie__cuerpo {
+  margin-top: 1.4rem;
+  opacity: 0.82;
+  font-size: 1.05rem;
+}
+
+.pie__cierre {
+  margin-top: 2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--oro-brillo);
+}
+
+.pie__linea {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 2rem;
-  padding-bottom: 2rem;
-}
-
-.pie__monograma {
-  height: 34px;
-  width: auto;
-  opacity: 0.85;
+  gap: 1.6rem;
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(252, 213, 191, 0.12);
 }
 
 .pie__enlaces {
   display: flex;
   gap: 2rem;
-  flex-wrap: wrap;
 }
 
 .pie__enlaces a {
@@ -83,11 +124,12 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646']
   border-radius: 50%;
 }
 
-.pie__linea {
+.pie__base {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.6rem;
+  margin-top: 1.6rem;
   padding-top: 1.6rem;
   border-top: 1px solid rgba(252, 213, 191, 0.1);
   font-size: 0.76rem;
@@ -96,7 +138,7 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646']
 }
 
 @media (max-width: 640px) {
-  .pie__interior {
+  .pie__linea {
     flex-direction: column;
     align-items: flex-start;
   }

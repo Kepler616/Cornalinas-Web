@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import monograma from '../assets/brand/monograma-crema.png'
 import fondo from '../assets/craft/temperado-01.jpg'
+import DivisorOla from './DivisorOla.vue'
 
 const offset = ref(0)
 
@@ -24,22 +25,24 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     <img :src="monograma" alt="" aria-hidden="true" class="hero__monograma" />
 
     <div class="hero__contenido contenedor">
-      <p class="eyebrow">Alta chocolatería artesanal</p>
-      <h1 class="hero__titulo">Cornalinas</h1>
+      <p class="eyebrow eyebrow--claro">Chocolate venezolano · Hecho en Berlín</p>
+      <h1 class="hero__titulo">Un viaje a casa,<br />fundido en chocolate.</h1>
       <p class="hero__lema">
-        El lujo se saborea despacio. Pralinés hechos a mano, en lotes pequeños,
-        para quienes reconocen lo exclusivo desde el primer bocado.
+        El cacao viaja con nosotros; los recuerdos se transforman. Descubre un
+        origen con infinitas formas de sentir, elaborado a mano y con afecto
+        en el corazón de Alemania.
       </p>
       <div class="hero__acciones">
-        <a href="#coleccion" class="boton boton--solido">Descubrir la colección</a>
-        <a href="#oficio" class="boton">El oficio Cornalinas</a>
+        <a href="#historia" class="boton boton--solido">Descubre nuestro origen</a>
       </div>
     </div>
 
-    <a href="#coleccion" class="hero__scroll" aria-label="Bajar a la colección">
+    <a href="#historia" class="hero__scroll" aria-label="Bajar a nuestra historia">
       <span></span>
-      Desliza
+      Deslizar
     </a>
+
+    <DivisorOla class="hero__divisor" color="var(--papel)" />
   </section>
 </template>
 
@@ -63,14 +66,14 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.05) contrast(1.05) brightness(0.55);
+  filter: saturate(1.1) contrast(1.05) brightness(0.5);
 }
 
 .hero__velo {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(20, 5, 5, 0.55) 0%, rgba(20, 5, 5, 0.35) 35%, rgba(20, 5, 5, 0.75) 78%, var(--negro) 100%),
+    linear-gradient(180deg, rgba(20, 5, 5, 0.55) 0%, rgba(20, 5, 5, 0.35) 35%, rgba(20, 5, 5, 0.78) 80%, var(--negro) 100%),
     linear-gradient(90deg, rgba(124, 18, 25, 0.55), rgba(20, 5, 5, 0.2) 55%, rgba(124, 18, 25, 0.4));
   mix-blend-mode: multiply;
 }
@@ -84,7 +87,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 .hero__monograma {
   position: absolute;
   right: -6%;
-  top: 50%;
+  top: 46%;
   transform: translateY(-50%);
   width: min(48vw, 620px);
   opacity: 0.08;
@@ -98,18 +101,19 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 }
 
 .hero__titulo {
-  font-size: clamp(3.6rem, 11vw, 8rem);
-  line-height: 0.95;
+  font-size: clamp(2.8rem, 7.4vw, 5.6rem);
+  line-height: 1.05;
   margin-block: 1rem 1.6rem;
   color: var(--blanco);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
+  max-width: 16ch;
 }
 
 .hero__lema {
   max-width: 32rem;
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   color: var(--crema-suave);
-  opacity: 0.9;
+  opacity: 0.92;
   font-weight: 300;
 }
 
@@ -122,7 +126,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 
 .hero__scroll {
   position: absolute;
-  bottom: 2.4rem;
+  bottom: 3.6rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -134,7 +138,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--crema);
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .hero__scroll span {
@@ -142,6 +146,13 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   height: 42px;
   background: linear-gradient(180deg, var(--crema), transparent);
   animation: bajar 2.2s ease-in-out infinite;
+}
+
+.hero__divisor {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 3;
 }
 
 @keyframes bajar {
@@ -154,10 +165,6 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   .hero__monograma {
     width: 80vw;
     opacity: 0.06;
-  }
-  .hero__acciones {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 </style>
