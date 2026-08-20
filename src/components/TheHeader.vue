@@ -65,14 +65,20 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   inset: 0 0 auto 0;
   z-index: 100;
   padding-block: 1.5rem;
-  transition: background 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+  background: linear-gradient(180deg, rgba(20, 5, 5, 0.28), rgba(20, 5, 5, 0));
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease;
 }
 
 .nav--solida {
-  background: rgba(246, 234, 215, 0.92);
-  backdrop-filter: blur(14px);
+  background: var(--cristal-claro-fondo);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-bottom: 1px solid var(--cristal-claro-borde);
   padding-block: 0.9rem;
-  box-shadow: 0 1px 0 rgba(58, 31, 20, 0.1);
+  box-shadow: 0 12px 32px -20px rgba(58, 31, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .nav__interior {
@@ -137,6 +143,8 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   padding-inline: 4px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   color: inherit;
   font-size: 0.68rem;
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -196,7 +204,10 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     flex-direction: column;
     gap: 1.4rem;
     padding: 1.6rem clamp(1.5rem, 5vw, 4rem) 2.2rem;
-    background: rgba(58, 31, 20, 0.97);
+    background: var(--cristal-oscuro-fondo);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-bottom: 1px solid var(--cristal-oscuro-borde);
   }
   .nav__movil a {
     font-family: var(--fuente-display);

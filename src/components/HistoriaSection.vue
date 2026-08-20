@@ -5,13 +5,15 @@ import monograma from '../assets/brand/monograma-rojo.png'
 
 <template>
   <section id="historia" class="historia">
+    <span class="orbe orbe--oro historia__orbe" aria-hidden="true"></span>
+
     <div class="contenedor historia__grid">
       <div class="historia__texto">
-        <p v-reveal class="eyebrow">02 · Nuestra historia</p>
-        <h2 v-reveal="{ delay: 100 }" class="historia__titulo">
-          De Venezuela, con el corazón en las manos.
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow">02 · Nuestra historia</p>
+        <h2 v-reveal="{ tipo: 'mascara' }" class="historia__titulo">
+          <span>De Venezuela, con el corazón en las manos.</span>
         </h2>
-        <p v-reveal="{ delay: 180 }" class="historia__cuerpo capitular">
+        <p v-reveal="{ tipo: 'izquierda', delay: 120 }" class="historia__cuerpo capitular">
           Cornalinas es más que una chocolatería; es nuestro puente de conexión.
           Nacimos de la profunda nostalgia por los sabores de nuestra tierra y
           el anhelo de compartirlos. Aquí unimos nuestras raíces venezolanas,
@@ -21,7 +23,7 @@ import monograma from '../assets/brand/monograma-rojo.png'
         </p>
       </div>
 
-      <div v-reveal="{ delay: 260 }" class="historia__mapa">
+      <div v-reveal="{ tipo: 'derecha', delay: 160 }" class="historia__mapa cristal cristal--claro">
         <img :src="monograma" alt="" aria-hidden="true" class="historia__sello" />
         <div class="ruta">
           <div class="ruta__punto">
@@ -42,11 +44,22 @@ import monograma from '../assets/brand/monograma-rojo.png'
 
 <style scoped>
 .historia {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--espacio-seccion);
   background: var(--papel);
 }
 
+.historia__orbe {
+  width: 380px;
+  height: 380px;
+  top: -10%;
+  right: 8%;
+}
+
 .historia__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: clamp(2.5rem, 6vw, 5rem);
@@ -68,9 +81,6 @@ import monograma from '../assets/brand/monograma-rojo.png'
 
 .historia__mapa {
   position: relative;
-  background: var(--papel-alto);
-  border: 1px solid var(--papel-sombra);
-  border-radius: 10px;
   padding: clamp(2rem, 4vw, 3rem);
   text-align: center;
 }

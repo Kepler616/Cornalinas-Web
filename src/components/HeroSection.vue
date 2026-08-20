@@ -25,14 +25,17 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
     <img :src="monograma" alt="" aria-hidden="true" class="hero__monograma" />
 
     <div class="hero__contenido contenedor">
-      <p class="eyebrow eyebrow--claro">Chocolate venezolano · Hecho en Berlín</p>
-      <h1 class="hero__titulo">Un viaje a casa,<br />fundido en chocolate.</h1>
-      <p class="hero__lema">
+      <p class="eyebrow eyebrow--claro hero__anim" style="animation-delay: 0.2s">Chocolate venezolano · Hecho en Berlín</p>
+      <h1 class="hero__titulo">
+        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.4s">Un viaje a casa,</span></span>
+        <span class="hero__linea"><span class="hero__anim" style="animation-delay: 0.6s">fundido en chocolate.</span></span>
+      </h1>
+      <p class="hero__lema hero__anim" style="animation-delay: 0.9s">
         El cacao viaja con nosotros; los recuerdos se transforman. Descubre un
         origen con infinitas formas de sentir, elaborado a mano y con afecto
         en el corazón de Alemania.
       </p>
-      <div class="hero__acciones">
+      <div class="hero__acciones hero__anim" style="animation-delay: 1.1s">
         <a href="#historia" class="boton boton--solido">Descubre nuestro origen</a>
       </div>
     </div>
@@ -107,6 +110,30 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
   color: var(--blanco);
   letter-spacing: 0.005em;
   max-width: 16ch;
+}
+
+.hero__linea {
+  display: block;
+  overflow: hidden;
+}
+
+.hero__anim {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: subirAparecer 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+p.hero__anim,
+div.hero__anim {
+  transform: translateY(24px);
+}
+
+@keyframes subirAparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero__lema {

@@ -11,13 +11,16 @@ const pasos = [
 
 <template>
   <section id="proceso" class="proceso">
+    <span class="orbe orbe--oro proceso__orbe1" aria-hidden="true"></span>
+    <span class="orbe orbe--rubi proceso__orbe2" aria-hidden="true"></span>
+
     <div class="contenedor">
       <div class="proceso__cabecera">
-        <p v-reveal class="eyebrow eyebrow--claro">03 · Proceso Bean to Bar</p>
-        <h2 v-reveal="{ delay: 100 }" class="proceso__titulo">
-          Del grano a la tableta: el respeto por el origen.
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">03 · Proceso Bean to Bar</p>
+        <h2 v-reveal="{ tipo: 'mascara' }" class="proceso__titulo">
+          <span>Del grano a la tableta: el respeto por el origen.</span>
         </h2>
-        <p v-reveal="{ delay: 180 }" class="proceso__cuerpo">
+        <p v-reveal="{ tipo: 'izquierda', delay: 140 }" class="proceso__cuerpo">
           Creemos en el movimiento Bean to Bar porque es la única forma de
           honrar el verdadero carácter del cacao. Acompañamos cada semilla
           desde que nace hasta que llega a tus manos, trabajando en pequeños
@@ -26,7 +29,7 @@ const pasos = [
       </div>
 
       <ol class="proceso__pasos">
-        <li v-for="(paso, i) in pasos" :key="paso.numero" v-reveal="{ delay: 260 + i * 110 }">
+        <li v-for="(paso, i) in pasos" :key="paso.numero" v-reveal="{ tipo: 'escala', delay: 220 + i * 140 }" class="cristal cristal--oscuro">
           <div class="proceso__icono">
             <IconoCornalinas :tipo="paso.icono" />
           </div>
@@ -41,9 +44,31 @@ const pasos = [
 
 <style scoped>
 .proceso {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--espacio-seccion);
   background: var(--cacao);
   color: var(--crema-suave);
+}
+
+.proceso__orbe1 {
+  width: 360px;
+  height: 360px;
+  top: -8%;
+  left: -6%;
+}
+
+.proceso__orbe2 {
+  width: 300px;
+  height: 300px;
+  bottom: -12%;
+  right: 4%;
+  animation-delay: -8s;
+}
+
+.proceso .contenedor {
+  position: relative;
+  z-index: 1;
 }
 
 .proceso__cabecera {
@@ -75,26 +100,34 @@ const pasos = [
 .proceso__pasos::before {
   content: '';
   position: absolute;
-  top: 22px;
+  top: 44px;
   left: 5%;
   right: 5%;
   height: 0;
   border-top: 2px dotted var(--oro);
-  opacity: 0.55;
+  opacity: 0.4;
+  z-index: -1;
 }
 
 .proceso__pasos li {
   position: relative;
+  padding: 1.8rem 1.6rem 2rem;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.proceso__pasos li:hover {
+  transform: translateY(-6px);
 }
 
 .proceso__icono {
   width: 44px;
   height: 44px;
   color: var(--oro-brillo);
-  position: relative;
-  z-index: 1;
-  background: var(--cacao);
-  padding-right: 4px;
+  transition: transform 0.5s ease;
+}
+
+.proceso__pasos li:hover .proceso__icono {
+  transform: rotate(-8deg) scale(1.08);
 }
 
 .proceso__numero {

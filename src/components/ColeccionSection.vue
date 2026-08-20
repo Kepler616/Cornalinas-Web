@@ -24,10 +24,13 @@ const medios = {
 
 <template>
   <section id="coleccion" class="coleccion">
+    <span class="orbe orbe--rojo coleccion__orbe1" aria-hidden="true"></span>
+    <span class="orbe orbe--oro coleccion__orbe2" aria-hidden="true"></span>
+
     <div class="contenedor coleccion__cabecera">
       <p v-reveal class="eyebrow">05 · Nuestra colección</p>
-      <h2 v-reveal="{ delay: 100 }" class="coleccion__titulo">
-        Pequeñas delicadezas. Grandes emociones.
+      <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="coleccion__titulo">
+        <span>Pequeñas delicadezas. Grandes emociones.</span>
       </h2>
       <p v-reveal="{ delay: 180 }" class="coleccion__cuerpo">
         Explora nuestra selección y construye tu propio momento Cornalinas.
@@ -48,8 +51,12 @@ const medios = {
       }"
       class="coleccion__swiper"
     >
-      <SwiperSlide v-for="producto in productos" :key="producto.id">
-        <article class="tarjeta" :class="{ 'tarjeta--destacada': producto.destacado }">
+      <SwiperSlide v-for="(producto, i) in productos" :key="producto.id">
+        <article
+          v-reveal="{ tipo: 'escala', delay: i * 120 }"
+          class="tarjeta cristal cristal--claro"
+          :class="{ 'tarjeta--destacada': producto.destacado }"
+        >
           <span v-if="producto.destacado" class="tarjeta__insignia">Edición limitada</span>
 
           <div class="tarjeta__medio">
@@ -85,8 +92,32 @@ const medios = {
 
 <style scoped>
 .coleccion {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--espacio-seccion);
   background: var(--papel);
+}
+
+.coleccion__orbe1 {
+  width: 340px;
+  height: 340px;
+  top: 10%;
+  left: -8%;
+}
+
+.coleccion__orbe2 {
+  width: 280px;
+  height: 280px;
+  bottom: -10%;
+  right: 6%;
+  animation-delay: -10s;
+}
+
+.coleccion__cabecera,
+.coleccion__swiper,
+.coleccion__navegacion {
+  position: relative;
+  z-index: 1;
 }
 
 .coleccion__cabecera {
@@ -116,9 +147,7 @@ const medios = {
 
 .tarjeta {
   position: relative;
-  background: var(--papel-alto);
-  border: 1px solid var(--papel-sombra);
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
   height: 100%;
   display: flex;
@@ -158,10 +187,19 @@ const medios = {
   justify-content: center;
 }
 
+.tarjeta__medio {
+  overflow: hidden;
+}
+
 .tarjeta__medio img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tarjeta:hover .tarjeta__medio img {
+  transform: scale(1.08);
 }
 
 .tarjeta__icono {

@@ -67,18 +67,21 @@ function nuevaSolicitud() {
 
 <template>
   <section id="pedido" class="pedido">
+    <span class="orbe orbe--rubi pedido__orbe1" aria-hidden="true"></span>
+    <span class="orbe orbe--oro pedido__orbe2" aria-hidden="true"></span>
+
     <div class="contenedor pedido__grid">
       <div class="pedido__intro">
-        <p v-reveal class="eyebrow eyebrow--claro">06 · Tu selección</p>
-        <h2 v-reveal="{ delay: 100 }">Hagamos este momento tuyo.</h2>
-        <p v-reveal="{ delay: 180 }" class="pedido__cuerpo">
+        <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">06 · Tu selección</p>
+        <h2 v-reveal="{ tipo: 'mascara', delay: 80 }"><span>Hagamos este momento tuyo.</span></h2>
+        <p v-reveal="{ tipo: 'izquierda', delay: 160 }" class="pedido__cuerpo">
           Completa tus datos y prepararemos la confirmación de tu pedido
           personalmente, con el mismo cuidado con el que elaboramos nuestro
           chocolate.
         </p>
 
         <ul class="resumen">
-          <li v-for="p in seleccion" :key="p.id">
+          <li v-for="(p, i) in seleccion" :key="p.id" v-reveal="{ tipo: 'izquierda', delay: 220 + i * 90 }">
             <span>{{ p.cantidad }} × {{ p.nombre }}</span>
             <strong>{{ formatoPrecio(p.precio * p.cantidad) }}</strong>
           </li>
@@ -93,7 +96,7 @@ function nuevaSolicitud() {
         </div>
       </div>
 
-      <div v-reveal="{ delay: 220 }" class="pedido__panel">
+      <div v-reveal="{ tipo: 'derecha', delay: 220 }" class="pedido__panel cristal cristal--claro">
         <transition name="fundido" mode="out-in">
           <div v-if="enviado" key="gracias" class="confirmacion">
             <h3>Gracias por tu confianza.</h3>
@@ -178,12 +181,31 @@ function nuevaSolicitud() {
 
 <style scoped>
 .pedido {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--espacio-seccion);
   background: var(--burdeos-noche);
   color: var(--crema-suave);
 }
 
+.pedido__orbe1 {
+  width: 380px;
+  height: 380px;
+  top: -10%;
+  right: -6%;
+}
+
+.pedido__orbe2 {
+  width: 260px;
+  height: 260px;
+  bottom: 4%;
+  left: -4%;
+  animation-delay: -9s;
+}
+
 .pedido__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
   gap: clamp(2.5rem, 6vw, 5rem);
@@ -244,9 +266,8 @@ function nuevaSolicitud() {
 }
 
 .pedido__panel {
-  background: var(--papel-alto);
   color: var(--cacao);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: clamp(1.8rem, 4vw, 2.6rem);
 }
 
@@ -284,14 +305,23 @@ input[type='text'],
 input[type='email'],
 input[type='tel'],
 textarea {
-  border: 1px solid var(--papel-sombra);
-  background: var(--papel);
+  border: 1px solid rgba(58, 31, 20, 0.16);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
   border-radius: 6px;
   padding: 0.8rem 1rem;
   font-family: var(--fuente-cuerpo);
   font-size: 0.95rem;
   color: var(--cacao);
   resize: vertical;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='tel']:focus,
+textarea:focus {
+  background: rgba(255, 255, 255, 0.75);
 }
 
 input:focus,

@@ -7,18 +7,21 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
 <template>
   <footer class="pie">
-    <div class="contenedor pie__tributo">
-      <img v-reveal :src="monograma" alt="Cornalinas" class="pie__monograma" />
-      <p v-reveal="{ delay: 80 }" class="eyebrow eyebrow--claro">08 · Con gratitud</p>
-      <h2 v-reveal="{ delay: 140 }">Antes que nosotros, están sus manos.</h2>
-      <p v-reveal="{ delay: 200 }" class="pie__cuerpo">
+    <span class="orbe orbe--rojo pie__orbe1" aria-hidden="true"></span>
+    <span class="orbe orbe--oro pie__orbe2" aria-hidden="true"></span>
+
+    <div class="contenedor pie__tributo cristal cristal--oscuro" v-reveal="{ tipo: 'escala' }">
+      <img :src="monograma" alt="Cornalinas" class="pie__monograma" />
+      <p class="eyebrow eyebrow--claro">08 · Con gratitud</p>
+      <h2>Antes que nosotros, están sus manos.</h2>
+      <p class="pie__cuerpo">
         La magia de este chocolate comienza mucho antes de llegar a nuestro
         taller. Rendimos homenaje a las productoras, agricultores y
         comunidades campesinas en Venezuela que cuidan el cacao y hacen
         posible su extraordinaria calidad. Sin su paciencia, conocimiento y
         vínculo con la tierra, Cornalinas simplemente no existiría.
       </p>
-      <p v-reveal="{ delay: 260 }" class="pie__cierre">Chocolate venezolano hecho con afecto.</p>
+      <p class="pie__cierre">Chocolate venezolano hecho con afecto.</p>
     </div>
 
     <div class="contenedor pie__linea">
@@ -28,7 +31,7 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
         <a href="#pedido">Pedido</a>
       </nav>
 
-      <ul class="pie__paleta" aria-hidden="true">
+      <ul class="pie__paleta cristal cristal--oscuro" aria-hidden="true">
         <li v-for="color in paleta" :key="color" :style="{ background: color }"></li>
       </ul>
     </div>
@@ -42,18 +45,38 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
 <style scoped>
 .pie {
+  position: relative;
+  overflow: hidden;
   background: var(--negro);
   color: var(--crema-suave);
   padding-block: var(--espacio-seccion) 2.4rem;
 }
 
+.pie__orbe1 {
+  width: 420px;
+  height: 420px;
+  top: -12%;
+  left: -8%;
+}
+
+.pie__orbe2 {
+  width: 340px;
+  height: 340px;
+  bottom: -14%;
+  right: -6%;
+  animation-delay: -6s;
+}
+
 .pie__tributo {
+  position: relative;
+  z-index: 1;
   max-width: 44rem;
   text-align: center;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: clamp(2rem, 5vw, 3.4rem) clamp(1.6rem, 4vw, 3rem);
 }
 
 .pie__monograma {
@@ -112,10 +135,11 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
 .pie__paleta {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.5rem;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
 }
 
 .pie__paleta li {

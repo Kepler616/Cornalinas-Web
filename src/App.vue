@@ -1,4 +1,5 @@
 <script setup>
+import ProgresoScroll from './components/ProgresoScroll.vue'
 import TheHeader from './components/TheHeader.vue'
 import HeroSection from './components/HeroSection.vue'
 import HistoriaSection from './components/HistoriaSection.vue'
@@ -12,6 +13,7 @@ import TheFooter from './components/TheFooter.vue'
 
 <template>
   <div class="grano" aria-hidden="true"></div>
+  <ProgresoScroll />
   <TheHeader />
   <main>
     <HeroSection />

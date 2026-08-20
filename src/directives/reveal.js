@@ -12,9 +12,20 @@ const observer = new IntersectionObserver(
 
 export const reveal = {
   mounted(el, binding) {
+    const opciones = typeof binding.value === 'object' && binding.value !== null ? binding.value : {}
+    const tipo = opciones.tipo || 'subir'
+
     el.classList.add('reveal')
-    if (binding.value?.delay) {
-      el.style.transitionDelay = `${binding.value.delay}ms`
+    if (tipo !== 'subir') {
+      el.classList.add(`reveal--${tipo}`)
+    }
+    if (opciones.delay) {
+      el.style.transitionDelay = `${opciones.delay}ms`
+      if (tipo === 'mascara') {
+        el.querySelectorAll(':scope > *').forEach((hijo) => {
+          hijo.style.transitionDelay = `${opciones.delay}ms`
+        })
+      }
     }
     observer.observe(el)
   },

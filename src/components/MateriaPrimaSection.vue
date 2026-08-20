@@ -1,6 +1,9 @@
 <script setup>
 import IconoCornalinas from './IconoCornalinas.vue'
 import foto from '../assets/craft/temperado-02.jpg'
+import { useParallax } from '../composables/useParallax'
+
+const { el: marco, desplazamiento } = useParallax(0.12)
 
 const rasgos = [
   { icono: 'hoja', etiqueta: 'Origen', valor: 'Venezuela' },
@@ -11,24 +14,35 @@ const rasgos = [
 
 <template>
   <section id="materia-prima" class="materia">
+    <span class="orbe orbe--verde materia__orbe" aria-hidden="true"></span>
+
     <div class="contenedor materia__grid">
-      <div v-reveal class="materia__marco">
-        <img :src="foto" alt="Temperado artesanal del chocolate Cornalinas" />
+      <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco">
+        <img
+          :src="foto"
+          alt="Temperado artesanal del chocolate Cornalinas"
+          :style="{ transform: `translateY(${desplazamiento}px) scale(1.15)` }"
+        />
       </div>
 
       <div class="materia__texto">
-        <p v-reveal="{ delay: 100 }" class="eyebrow">04 · Materia prima</p>
-        <h2 v-reveal="{ delay: 160 }" class="materia__titulo">
-          Venezuela en cada nota de sabor.
+        <p v-reveal="{ tipo: 'derecha' }" class="eyebrow">04 · Materia prima</p>
+        <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="materia__titulo">
+          <span>Venezuela en cada nota de sabor.</span>
         </h2>
-        <p v-reveal="{ delay: 220 }" class="materia__cuerpo">
+        <p v-reveal="{ tipo: 'derecha', delay: 160 }" class="materia__cuerpo">
           Nuestro cacao es el protagonista indiscutible. Complejo, aromático y
           lleno de vida. Es una materia prima que habla directamente de su
           tierra y de la sabiduría ancestral de quienes la cultivan.
         </p>
 
         <ul class="materia__lista">
-          <li v-for="(rasgo, i) in rasgos" :key="rasgo.etiqueta" v-reveal="{ delay: 300 + i * 100 }">
+          <li
+            v-for="(rasgo, i) in rasgos"
+            :key="rasgo.etiqueta"
+            v-reveal="{ tipo: 'derecha', delay: 260 + i * 110 }"
+            class="cristal cristal--claro"
+          >
             <IconoCornalinas :tipo="rasgo.icono" />
             <div>
               <span>{{ rasgo.etiqueta }}</span>
@@ -43,8 +57,23 @@ const rasgos = [
 
 <style scoped>
 .materia {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--espacio-seccion);
   background: var(--papel-alto);
+}
+
+.materia__orbe {
+  width: 320px;
+  height: 320px;
+  bottom: -14%;
+  left: 42%;
+  opacity: 0.3;
+}
+
+.materia .materia__grid {
+  position: relative;
+  z-index: 1;
 }
 
 .materia__grid {
@@ -68,6 +97,8 @@ const rasgos = [
   width: 100%;
   height: 100%;
   object-fit: cover;
+  will-change: transform;
+  transition: transform 0.1s linear;
 }
 
 .materia__titulo {
@@ -96,6 +127,12 @@ const rasgos = [
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 1rem 1.2rem;
+  transition: transform 0.4s ease;
+}
+
+.materia__lista li:hover {
+  transform: translateX(6px);
 }
 
 .materia__lista svg {
