@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref } from 'vue'
 import { useCarrito } from '../composables/useCarrito'
 
 const { seleccion, totalArticulos, totalProvisional, vaciarCarrito } = useCarrito()
@@ -9,87 +9,60 @@ const form = reactive({
   email: '',
   telefono: '',
   entrega: 'recogida',
+  direccion: '',
+  pago: 'transferencia',
   mensaje: '',
 })
 
-const enviando = ref(false)
 const enviado = ref(false)
-const cancelado = ref(false)
-const error = ref('')
 
 function formatoPrecio(valor) {
   return `${valor.toFixed(2).replace('.', ',')} €`
 }
 
-async function alEnviar() {
-  if (seleccion.value.length === 0 || enviando.value) return
+function construirCuerpoCorreo() {
+  const lineas = seleccion.value.map(
+    (p) => `— ${p.nombre} (${p.formato}) × ${p.cantidad} = ${formatoPrecio(p.precio * p.cantidad)}`
+  )
+  return [
+    'Nueva solicitud de pedido Cornalinas',
+    '',
+    'Selección:',
+    ...lineas,
+    '',
+    `Total provisional: ${formatoPrecio(totalProvisional.value)}`,
+    '',
+    `Nombre: ${form.nombre}`,
+    `Email: ${form.email}`,
+    `Teléfono: ${form.telefono}`,
+    `Entrega: ${form.entrega === 'recogida' ? 'Recogida en tienda' : 'Envío a domicilio'}`,
+    form.entrega === 'envio' ? `Dirección: ${form.direccion}` : null,
+    `Pago: ${form.pago === 'transferencia' ? 'Transferencia bancaria' : 'Efectivo contra entrega'}`,
+    form.mensaje ? `Mensaje: ${form.mensaje}` : null,
+  ]
+    .filter(Boolean)
+    .join('\n')
+}
 
-  enviando.value = true
-  error.value = ''
+function alEnviar() {
+  if (seleccion.value.length === 0) return
 
-  const mensajeGenerico = 'No se pudo iniciar el pago. Intenta de nuevo en unos minutos.'
+  const asunto = encodeURIComponent('Nueva solicitud de pedido — Cornalinas')
+  const cuerpo = encodeURIComponent(construirCuerpoCorreo())
+  window.location.href = `mailto:hola@cornalinas.com?subject=${asunto}&body=${cuerpo}`
 
-  try {
-    const respuesta = await fetch('/api/crear-sesion-pago', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        seleccion: seleccion.value.map((p) => ({ id: p.id, cantidad: p.cantidad })),
-        cliente: {
-          nombre: form.nombre,
-          email: form.email,
-          telefono: form.telefono,
-          entrega: form.entrega,
-          mensaje: form.mensaje,
-        },
-      }),
-    })
-
-    const datos = await respuesta.json().catch(() => null)
-
-    if (!respuesta.ok || !datos?.url) {
-      throw new Error(datos?.error || mensajeGenerico)
-    }
-
-    window.location.href = datos.url
-  } catch (e) {
-    error.value = e.message || mensajeGenerico
-    enviando.value = false
-  }
+  enviado.value = true
 }
 
 function nuevaSolicitud() {
   enviado.value = false
-  cancelado.value = false
   vaciarCarrito()
   form.nombre = ''
   form.email = ''
   form.telefono = ''
+  form.direccion = ''
   form.mensaje = ''
 }
-
-function reintentar() {
-  cancelado.value = false
-}
-
-onMounted(() => {
-  const parametros = new URLSearchParams(window.location.search)
-  const estado = parametros.get('pedido')
-
-  if (estado === 'exito') {
-    enviado.value = true
-    vaciarCarrito()
-  } else if (estado === 'cancelado') {
-    cancelado.value = true
-  }
-
-  if (estado) {
-    const url = new URL(window.location.href)
-    url.searchParams.delete('pedido')
-    url.searchParams.delete('session_id')
-    window.history.replaceState({}, '', url)
-  }
-})
 </script>
 
 <template>
@@ -102,9 +75,9 @@ onMounted(() => {
         <p v-reveal="{ tipo: 'izquierda' }" class="eyebrow eyebrow--claro">06 · Tu selección</p>
         <h2 v-reveal="{ tipo: 'mascara', delay: 80 }"><span>Hagamos este momento tuyo.</span></h2>
         <p v-reveal="{ tipo: 'izquierda', delay: 160 }" class="pedido__cuerpo">
-          Completa tus datos, paga de forma segura con tarjeta y nosotros
-          preparamos tu pedido con el mismo cuidado con el que elaboramos
-          nuestro chocolate.
+          Completa tus datos y prepararemos la confirmación de tu pedido
+          personalmente, con el mismo cuidado con el que elaboramos nuestro
+          chocolate.
         </p>
 
         <ul class="resumen">
@@ -126,21 +99,13 @@ onMounted(() => {
       <div v-reveal="{ tipo: 'derecha', delay: 220 }" class="pedido__panel cristal cristal--claro">
         <transition name="fundido" mode="out-in">
           <div v-if="enviado" key="gracias" class="confirmacion">
-            <h3>Gracias por tu compra.</h3>
+            <h3>Gracias por tu confianza.</h3>
             <p>
-              Tu pago se procesó correctamente y Stripe te envió un recibo por
-              correo. Te escribiremos personalmente para coordinar la entrega.
+              Hemos preparado tu solicitud en tu cliente de correo. En cuanto
+              la recibamos, te contactaremos personalmente para confirmar
+              disponibilidad, envío y el total final.
             </p>
-            <button type="button" class="boton boton--solido" @click="nuevaSolicitud">Hacer otro pedido</button>
-          </div>
-
-          <div v-else-if="cancelado" key="cancelado" class="confirmacion">
-            <h3>Pago cancelado.</h3>
-            <p>
-              No te preocupes, tu selección sigue guardada y no se realizó
-              ningún cobro. Puedes intentarlo de nuevo cuando quieras.
-            </p>
-            <button type="button" class="boton boton--solido" @click="reintentar">Volver a intentar</button>
+            <button type="button" class="boton boton--solido" @click="nuevaSolicitud">Hacer otra solicitud</button>
           </div>
 
           <form v-else key="formulario" class="formulario" @submit.prevent="alEnviar">
@@ -174,24 +139,38 @@ onMounted(() => {
               </div>
             </fieldset>
 
-            <p v-if="form.entrega === 'envio'" class="nota-envio">
-              Te pediremos la dirección de envío en el siguiente paso, durante el pago seguro.
-            </p>
+            <div v-if="form.entrega === 'envio'" class="campo">
+              <label for="direccion">Dirección de envío</label>
+              <input id="direccion" v-model="form.direccion" type="text" required placeholder="Calle, número, ciudad, código postal" />
+            </div>
+
+            <fieldset class="campo">
+              <legend>Método de pago</legend>
+              <div class="opciones">
+                <label class="opcion">
+                  <input v-model="form.pago" type="radio" value="transferencia" />
+                  Transferencia bancaria
+                </label>
+                <label class="opcion">
+                  <input v-model="form.pago" type="radio" value="efectivo" />
+                  Efectivo contra entrega
+                </label>
+              </div>
+            </fieldset>
 
             <div class="campo">
               <label for="mensaje">Mensaje (opcional)</label>
               <textarea id="mensaje" v-model="form.mensaje" rows="3" placeholder="Alguna dedicatoria o detalle para tu pedido"></textarea>
             </div>
 
-            <p v-if="error" class="nota-error">{{ error }}</p>
-
             <p class="nota-confianza">
-              El pago se procesa de forma segura con Stripe (tarjeta). Nunca
-              vemos ni guardamos los datos de tu tarjeta.
+              No se realizará ningún cobro automático en esta página. Te
+              contactaremos para confirmar disponibilidad, detalles de envío y
+              el total final antes del pago.
             </p>
 
-            <button type="submit" class="boton boton--solido" :disabled="seleccion.length === 0 || enviando">
-              {{ enviando ? 'Redirigiendo al pago…' : 'Pagar de forma segura →' }}
+            <button type="submit" class="boton boton--solido" :disabled="seleccion.length === 0">
+              Solicitar mi pedido con afecto →
             </button>
           </form>
         </transition>
@@ -383,23 +362,6 @@ textarea:focus {
   opacity: 0.85;
   border-top: 1px dotted var(--oro);
   padding-top: 1rem;
-}
-
-.nota-envio {
-  margin-top: -0.6rem;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--cacao-suave);
-  opacity: 0.85;
-}
-
-.nota-error {
-  font-size: 0.88rem;
-  color: var(--rojo);
-  background: rgba(159, 30, 33, 0.1);
-  border: 1px solid rgba(159, 30, 33, 0.3);
-  border-radius: 6px;
-  padding: 0.7rem 0.9rem;
 }
 
 .formulario .boton {
