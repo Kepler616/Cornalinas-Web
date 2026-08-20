@@ -5,7 +5,7 @@ import monograma from '../assets/brand/monograma-rojo.png'
 
 <template>
   <section id="historia" class="historia">
-    <span class="orbe orbe--oro historia__orbe" aria-hidden="true"></span>
+    <span class="orbe orbe--oro orbe--vagar1 historia__orbe" style="animation-delay: -4s" aria-hidden="true"></span>
 
     <div class="contenedor historia__grid">
       <div class="historia__texto">

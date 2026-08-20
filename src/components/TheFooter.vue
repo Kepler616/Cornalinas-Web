@@ -7,8 +7,8 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 
 <template>
   <footer class="pie">
-    <span class="orbe orbe--rojo pie__orbe1" aria-hidden="true"></span>
-    <span class="orbe orbe--oro pie__orbe2" aria-hidden="true"></span>
+    <span class="orbe orbe--rojo orbe--vagar2 pie__orbe1" style="animation-delay: -25s" aria-hidden="true"></span>
+    <span class="orbe orbe--oro orbe--vagar4 pie__orbe2" style="animation-delay: -3s" aria-hidden="true"></span>
 
     <div class="contenedor pie__tributo cristal cristal--oscuro" v-reveal="{ tipo: 'escala' }">
       <img :src="monograma" alt="Cornalinas" class="pie__monograma" />

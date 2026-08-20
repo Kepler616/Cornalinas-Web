@@ -24,8 +24,8 @@ const medios = {
 
 <template>
   <section id="coleccion" class="coleccion">
-    <span class="orbe orbe--rojo coleccion__orbe1" aria-hidden="true"></span>
-    <span class="orbe orbe--oro coleccion__orbe2" aria-hidden="true"></span>
+    <span class="orbe orbe--rojo orbe--vagar2 coleccion__orbe1" style="animation-delay: -22s" aria-hidden="true"></span>
+    <span class="orbe orbe--oro orbe--vagar4 coleccion__orbe2" style="animation-delay: -9s" aria-hidden="true"></span>
 
     <div class="contenedor coleccion__cabecera">
       <p v-reveal class="eyebrow">05 · Nuestra colección</p>

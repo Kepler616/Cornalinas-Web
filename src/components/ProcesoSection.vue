@@ -11,8 +11,8 @@ const pasos = [
 
 <template>
   <section id="proceso" class="proceso">
-    <span class="orbe orbe--oro proceso__orbe1" aria-hidden="true"></span>
-    <span class="orbe orbe--rubi proceso__orbe2" aria-hidden="true"></span>
+    <span class="orbe orbe--oro orbe--vagar1 proceso__orbe1" style="animation-delay: -11s" aria-hidden="true"></span>
+    <span class="orbe orbe--rubi orbe--vagar3 proceso__orbe2" style="animation-delay: -6s" aria-hidden="true"></span>
 
     <div class="contenedor">
       <div class="proceso__cabecera">

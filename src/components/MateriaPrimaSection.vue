@@ -14,7 +14,7 @@ const rasgos = [
 
 <template>
   <section id="materia-prima" class="materia">
-    <span class="orbe orbe--verde materia__orbe" aria-hidden="true"></span>
+    <span class="orbe orbe--verde orbe--vagar4 materia__orbe" style="animation-delay: -17s" aria-hidden="true"></span>
 
     <div class="contenedor materia__grid">
       <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco">

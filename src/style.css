@@ -178,17 +178,19 @@ button {
   color: var(--crema-suave);
 }
 
-/* Orbes de color: dan profundidad detrás del vidrio.
-   Se usa un radial-gradient (no filter:blur sobre una forma sólida) para que
-   el desvanecido ocurra siempre dentro de la propia caja del elemento y no
-   se corte en un borde duro cuando la sección recorta con overflow:hidden. */
+/* Orbes de color: dan profundidad detrás del vidrio, como luciérnagas
+   deambulando. Se usa un radial-gradient (no filter:blur sobre una forma
+   sólida) para que el desvanecido ocurra siempre dentro de la propia caja
+   del elemento y no se corte en un borde duro cuando la sección recorta con
+   overflow:hidden; un blur adicional, moderado, los difumina aún más. */
 .orbe {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.65;
+  opacity: 0.7;
+  filter: blur(28px);
   pointer-events: none;
   z-index: 0;
-  animation: flotar 22s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .orbe--rojo { background: radial-gradient(circle, var(--rojo) 0%, rgba(159, 30, 33, 0.4) 35%, transparent 70%); }
@@ -196,17 +198,56 @@ button {
 .orbe--rubi { background: radial-gradient(circle, var(--rubi) 0%, rgba(200, 37, 45, 0.4) 35%, transparent 70%); }
 .orbe--verde { background: radial-gradient(circle, var(--verde-selva) 0%, rgba(51, 72, 47, 0.4) 35%, transparent 70%); }
 
-@keyframes flotar {
-  0% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(10%, -14%) scale(1.15); }
-  50% { transform: translate(-8%, 10%) scale(0.88); }
-  75% { transform: translate(-13%, -7%) scale(1.08); }
-  100% { transform: translate(0, 0) scale(1); }
+/* Cuatro recorridos distintos, con paradas irregulares y duraciones que no
+   son múltiplos entre sí, para que nunca se sincronicen y el conjunto se
+   sienta errático en vez de un vaivén mecánico. */
+.orbe--vagar1 { animation: vagar1 24s ease-in-out infinite; }
+.orbe--vagar2 { animation: vagar2 31s ease-in-out infinite; }
+.orbe--vagar3 { animation: vagar3 19s ease-in-out infinite; }
+.orbe--vagar4 { animation: vagar4 27s ease-in-out infinite; }
+
+@keyframes vagar1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  14% { transform: translate(38%, -52%) scale(1.2); opacity: 0.75; }
+  29% { transform: translate(-22%, -68%) scale(0.8); opacity: 0.45; }
+  47% { transform: translate(-58%, -18%) scale(1.1); opacity: 0.8; }
+  63% { transform: translate(-30%, 40%) scale(0.85); opacity: 0.5; }
+  81% { transform: translate(26%, 55%) scale(1.15); opacity: 0.7; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+}
+
+@keyframes vagar2 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.75; }
+  18% { transform: translate(-45%, 30%) scale(0.85); opacity: 0.45; }
+  33% { transform: translate(-20%, 62%) scale(1.18); opacity: 0.7; }
+  52% { transform: translate(40%, 48%) scale(0.9); opacity: 0.5; }
+  70% { transform: translate(60%, -22%) scale(1.1); opacity: 0.8; }
+  88% { transform: translate(15%, -48%) scale(0.95); opacity: 0.55; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.75; }
+}
+
+@keyframes vagar3 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  20% { transform: translate(-34%, -40%) scale(1.12); opacity: 0.8; }
+  41% { transform: translate(32%, -30%) scale(0.82); opacity: 0.5; }
+  58% { transform: translate(48%, 25%) scale(1.2); opacity: 0.7; }
+  76% { transform: translate(-10%, 50%) scale(0.88); opacity: 0.45; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+}
+
+@keyframes vagar4 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.65; }
+  16% { transform: translate(28%, 44%) scale(0.9); opacity: 0.4; }
+  35% { transform: translate(55%, 5%) scale(1.15); opacity: 0.75; }
+  54% { transform: translate(20%, -46%) scale(0.85); opacity: 0.5; }
+  72% { transform: translate(-40%, -30%) scale(1.1); opacity: 0.8; }
+  90% { transform: translate(-52%, 20%) scale(0.92); opacity: 0.55; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.65; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .orbe {
-    animation: none;
+    animation: none !important;
   }
 }
 

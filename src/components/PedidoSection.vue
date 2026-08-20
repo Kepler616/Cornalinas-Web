@@ -67,8 +67,8 @@ function nuevaSolicitud() {
 
 <template>
   <section id="pedido" class="pedido">
-    <span class="orbe orbe--rubi pedido__orbe1" aria-hidden="true"></span>
-    <span class="orbe orbe--oro pedido__orbe2" aria-hidden="true"></span>
+    <span class="orbe orbe--rubi orbe--vagar3 pedido__orbe1" style="animation-delay: -13s" aria-hidden="true"></span>
+    <span class="orbe orbe--oro orbe--vagar1 pedido__orbe2" style="animation-delay: -8s" aria-hidden="true"></span>
 
     <div class="contenedor pedido__grid">
       <div class="pedido__intro">
