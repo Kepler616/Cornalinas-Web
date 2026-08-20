@@ -26,7 +26,7 @@ const rasgos = [
       </div>
 
       <div class="materia__texto">
-        <p v-reveal="{ tipo: 'derecha' }" class="eyebrow">04 · Materia prima</p>
+        <p v-reveal="{ tipo: 'derecha' }" class="eyebrow">05 · Materia prima</p>
         <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="materia__titulo">
           <span>Venezuela en cada nota de sabor.</span>
         </h2>

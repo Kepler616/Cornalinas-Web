@@ -29,7 +29,7 @@ const medios = {
 
     <div class="contenedor">
       <div class="coleccion__cabecera">
-        <p v-reveal class="eyebrow">05 · Nuestra colección</p>
+        <p v-reveal class="eyebrow">04 · Nuestra colección</p>
         <h2 v-reveal="{ tipo: 'mascara', delay: 80 }" class="coleccion__titulo">
           <span>Pequeñas delicadezas. Grandes emociones.</span>
         </h2>
