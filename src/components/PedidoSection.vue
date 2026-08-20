@@ -266,6 +266,11 @@ function nuevaSolicitud() {
 }
 
 .pedido__panel {
+  /* Este panel flota sobre el fondo muy oscuro de la sección: se sube la
+     opacidad del cristal claro compartido para que siga leyéndose como una
+     tarjeta clara y con buen contraste en vez de mezclarse con el fondo. */
+  background: rgba(230, 202, 156, 0.92);
+  border-color: rgba(255, 244, 224, 0.55);
   color: var(--cacao);
   border-radius: 16px;
   padding: clamp(1.8rem, 4vw, 2.6rem);

@@ -178,26 +178,30 @@ button {
   color: var(--crema-suave);
 }
 
-/* Orbes de color desenfocados: dan profundidad detrás del vidrio */
+/* Orbes de color: dan profundidad detrás del vidrio.
+   Se usa un radial-gradient (no filter:blur sobre una forma sólida) para que
+   el desvanecido ocurra siempre dentro de la propia caja del elemento y no
+   se corte en un borde duro cuando la sección recorta con overflow:hidden. */
 .orbe {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.55;
+  opacity: 0.65;
   pointer-events: none;
   z-index: 0;
-  animation: flotar 16s ease-in-out infinite;
+  animation: flotar 22s ease-in-out infinite;
 }
 
-.orbe--rojo { background: var(--rojo); }
-.orbe--oro { background: var(--oro-brillo); }
-.orbe--rubi { background: var(--rubi); }
-.orbe--verde { background: var(--verde-selva); }
+.orbe--rojo { background: radial-gradient(circle, var(--rojo) 0%, rgba(159, 30, 33, 0.4) 35%, transparent 70%); }
+.orbe--oro { background: radial-gradient(circle, var(--oro-brillo) 0%, rgba(217, 167, 92, 0.35) 35%, transparent 70%); }
+.orbe--rubi { background: radial-gradient(circle, var(--rubi) 0%, rgba(200, 37, 45, 0.4) 35%, transparent 70%); }
+.orbe--verde { background: radial-gradient(circle, var(--verde-selva) 0%, rgba(51, 72, 47, 0.4) 35%, transparent 70%); }
 
 @keyframes flotar {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(3%, -4%) scale(1.08); }
-  66% { transform: translate(-3%, 3%) scale(0.94); }
+  0% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(10%, -14%) scale(1.15); }
+  50% { transform: translate(-8%, 10%) scale(0.88); }
+  75% { transform: translate(-13%, -7%) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

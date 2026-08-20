@@ -122,6 +122,7 @@ const medios = {
 
 .coleccion__cabecera {
   max-width: 42rem;
+  margin-inline: 0;
   margin-bottom: clamp(2.5rem, 6vw, 4rem);
 }
 
