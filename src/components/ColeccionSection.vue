@@ -18,7 +18,7 @@ const { t, tm } = useI18n()
 const { productos: catalogo, cantidades, incrementar, decrementar } = useCarrito()
 
 const medios = {
-  'origen-70': { tipo: 'foto', src: tabletaOrigen },
+  'origen-70': { tipo: 'foto', src: tabletaOrigen, posicion: 'center top' },
   'leche-45': { tipo: 'foto', src: tabletaLeche },
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
   'edicion-especial-9': { tipo: 'foto', src: cajaLibro, posicion: 'center top' },
@@ -238,7 +238,7 @@ watch(idDetalle, (valor) => {
                 <img
                   :src="medios[productoActivo.id].src"
                   :alt="productoActivo.nombre"
-                  :style="zoomImagenEstilo"
+                  :style="{ objectPosition: medios[productoActivo.id].posicion || 'center', ...zoomImagenEstilo }"
                 />
               </div>
             </div>
