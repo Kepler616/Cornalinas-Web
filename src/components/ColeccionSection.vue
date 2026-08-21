@@ -1,10 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 import IconoCornalinas from './IconoCornalinas.vue'
 import { useCarrito } from '../composables/useCarrito'
@@ -19,7 +15,6 @@ import miniPack from '../assets/product/placeholder-mini-pack.jpg'
 import limonCoco from '../assets/product/placeholder-limon-coco.jpg'
 
 const { t, tm } = useI18n()
-const modulos = [Navigation]
 const { productos: catalogo, cantidades, incrementar, decrementar } = useCarrito()
 
 const medios = {
@@ -124,58 +119,41 @@ watch(idDetalle, (valor) => {
       </div>
     </div>
 
-    <Swiper
-      :modules="modulos"
-      :slides-per-view="1.15"
-      :space-between="24"
-      :grab-cursor="true"
-      :navigation="{ prevEl: '.coleccion__flecha--prev', nextEl: '.coleccion__flecha--next' }"
-      :breakpoints="{
-        640: { slidesPerView: 1.8 },
-        980: { slidesPerView: 2.6 },
-        1280: { slidesPerView: 3.3 },
-      }"
-      class="coleccion__swiper"
-    >
-      <SwiperSlide v-for="(producto, i) in productos" :key="producto.id">
-        <article
-          v-reveal="{ tipo: 'escala', delay: i * 120 }"
-          class="tarjeta cristal cristal--claro"
-          :class="{ 'tarjeta--destacada': producto.destacado }"
-        >
-          <span v-if="producto.destacado" class="tarjeta__insignia">{{ t('coleccion.insignia') }}</span>
+    <div class="contenedor coleccion__grid">
+      <article
+        v-for="(producto, i) in productos"
+        :key="producto.id"
+        v-reveal="{ tipo: 'escala', delay: i * 100 }"
+        class="tarjeta cristal cristal--claro"
+        :class="{ 'tarjeta--destacada': producto.destacado }"
+      >
+        <span v-if="producto.destacado" class="tarjeta__insignia">{{ t('coleccion.insignia') }}</span>
 
-          <div class="tarjeta__medio">
-            <img v-if="medios[producto.id].tipo === 'foto'" :src="medios[producto.id].src" :alt="producto.nombre" />
-            <IconoCornalinas v-else :tipo="medios[producto.id].valor" class="tarjeta__icono" />
-          </div>
+        <button type="button" class="tarjeta__medio" @click="abrirDetalle(producto.id)" :aria-label="`${t('coleccion.masDetalles')}: ${producto.nombre}`">
+          <img v-if="medios[producto.id].tipo === 'foto'" :src="medios[producto.id].src" :alt="producto.nombre" />
+          <IconoCornalinas v-else :tipo="medios[producto.id].valor" class="tarjeta__icono" />
+        </button>
 
-          <div class="tarjeta__cuerpo">
-            <p class="tarjeta__formato">{{ producto.formato }}</p>
-            <h3>{{ producto.nombre }}</h3>
-            <p class="tarjeta__descripcion">{{ producto.descripcion }}</p>
+        <div class="tarjeta__cuerpo">
+          <p class="tarjeta__formato">{{ producto.formato }}</p>
+          <h3>{{ producto.nombre }}</h3>
+          <p class="tarjeta__descripcion">{{ producto.descripcion }}</p>
 
-            <button type="button" class="tarjeta__detalle" @click="abrirDetalle(producto.id)">
-              {{ t('coleccion.masDetalles') }} →
-            </button>
+          <button type="button" class="tarjeta__detalle" @click="abrirDetalle(producto.id)">
+            {{ t('coleccion.masDetalles') }}
+          </button>
 
-            <div class="tarjeta__pie">
-              <span class="tarjeta__precio">{{ producto.precio.toFixed(2).replace('.', ',') }} €</span>
+          <div class="tarjeta__pie">
+            <span class="tarjeta__precio">{{ producto.precio.toFixed(2).replace('.', ',') }} €</span>
 
-              <div class="contador">
-                <button type="button" @click="decrementar(producto.id)" :disabled="!cantidades[producto.id]" :aria-label="t('coleccion.quitar')">−</button>
-                <span>{{ cantidades[producto.id] || 0 }}</span>
-                <button type="button" @click="incrementar(producto.id)" :aria-label="t('coleccion.anadir')">+</button>
-              </div>
+            <div class="contador">
+              <button type="button" @click="decrementar(producto.id)" :disabled="!cantidades[producto.id]" :aria-label="t('coleccion.quitar')">−</button>
+              <span>{{ cantidades[producto.id] || 0 }}</span>
+              <button type="button" @click="incrementar(producto.id)" :aria-label="t('coleccion.anadir')">+</button>
             </div>
           </div>
-        </article>
-      </SwiperSlide>
-    </Swiper>
-
-    <div class="coleccion__navegacion contenedor">
-      <button class="coleccion__flecha coleccion__flecha--prev" :aria-label="t('coleccion.anterior')">←</button>
-      <button class="coleccion__flecha coleccion__flecha--next" :aria-label="t('coleccion.siguiente')">→</button>
+        </div>
+      </article>
     </div>
 
     <Teleport to="body">
@@ -216,6 +194,16 @@ watch(idDetalle, (valor) => {
                   <IconoCornalinas tipo="hoja" class="detalle-descripcion__icono" />
                   {{ productoActivo.descripcion }}
                 </p>
+
+                <div class="detalle-accion">
+                  <span class="detalle-precio-etiqueta">{{ t('coleccion.cantidad') }}</span>
+                  <div class="contador">
+                    <button type="button" @click="decrementar(productoActivo.id)" :disabled="!cantidades[productoActivo.id]" :aria-label="t('coleccion.quitar')">−</button>
+                    <span>{{ cantidades[productoActivo.id] || 0 }}</span>
+                    <button type="button" @click="incrementar(productoActivo.id)" :aria-label="t('coleccion.anadir')">+</button>
+                  </div>
+                </div>
+
                 <div class="detalle-precio-fila">
                   <span class="detalle-precio-etiqueta">{{ t('coleccion.precio') }}</span>
                   <span class="tarjeta__precio">{{ productoActivo.precio.toFixed(2).replace('.', ',') }} €</span>
@@ -261,8 +249,7 @@ watch(idDetalle, (valor) => {
 }
 
 .coleccion__cabecera,
-.coleccion__swiper,
-.coleccion__navegacion {
+.coleccion__grid {
   position: relative;
   z-index: 1;
 }
@@ -288,10 +275,24 @@ watch(idDetalle, (valor) => {
   opacity: 0.8;
 }
 
-.coleccion__swiper {
-  max-width: var(--ancho-max);
-  margin-inline: auto;
-  padding: 1rem clamp(1.5rem, 5vw, 4rem) 2.5rem;
+.coleccion__grid {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+@media (max-width: 980px) {
+  .coleccion__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .coleccion__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tarjeta {
@@ -301,9 +302,6 @@ watch(idDetalle, (valor) => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* .cristal aplica una sombra de reposo pensada para paneles fijos; en un
-     carrusel se ve recortada por el overflow:hidden del propio Swiper, así
-     que aquí no hay sombra hasta el hover. */
   box-shadow: none;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
 }
@@ -339,6 +337,10 @@ watch(idDetalle, (valor) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .tarjeta__medio img {
@@ -389,20 +391,22 @@ watch(idDetalle, (valor) => {
 .tarjeta__detalle {
   align-self: flex-start;
   margin-top: 0.9rem;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 0.72rem;
+  padding: 0.5rem 1.05rem;
+  border: 1px solid var(--rojo);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--rojo);
-  opacity: 0.85;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tarjeta__detalle:hover {
-  opacity: 1;
-  transform: translateX(3px);
+  background: var(--rojo);
+  color: var(--blanco);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px -10px rgba(159, 30, 33, 0.55);
 }
 
 .tarjeta__pie {
@@ -454,30 +458,6 @@ watch(idDetalle, (valor) => {
   min-width: 1.2rem;
   text-align: center;
   font-size: 0.95rem;
-}
-
-.coleccion__navegacion {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.coleccion__flecha {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--cacao);
-  background: transparent;
-  color: var(--cacao);
-  font-size: 1.1rem;
-  transition: background 0.35s ease, color 0.35s ease;
-}
-
-.coleccion__flecha:hover {
-  background: var(--rojo);
-  border-color: var(--rojo);
-  color: var(--blanco);
 }
 
 .detalle-fondo {
@@ -608,8 +588,15 @@ watch(idDetalle, (valor) => {
   opacity: 0.85;
 }
 
+.detalle-accion {
+  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .detalle-precio-fila {
-  margin-top: 1.8rem;
+  margin-top: 1.4rem;
   padding-top: 1.4rem;
   border-top: 1px solid var(--cristal-claro-borde);
   display: flex;
