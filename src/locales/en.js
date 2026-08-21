@@ -45,7 +45,10 @@ export default {
     titulo: 'Venezuela in every note of flavor.',
     cuerpo:
       "Our cacao is the undisputed protagonist. Complex, aromatic and full of life. It's a raw material that speaks directly of its land and the ancestral wisdom of those who grow it.",
-    foto: 'Artisanal tempering of Cornalinas chocolate',
+    fotoGranos: 'Split Venezuelan cacao beans, showing their interior',
+    fotoVaina: 'Cacao pods ripening on the tree',
+    fotoCosecha: 'Freshly harvested cacao pods',
+    fotoSecado: 'An open cacao pod beside beans drying in the sun',
     rasgos: [
       { etiqueta: 'Origin', valor: 'Venezuela' },
       { etiqueta: 'Profile', valor: 'Fruity · Floral · Deep' },

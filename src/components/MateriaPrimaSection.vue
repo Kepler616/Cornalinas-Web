@@ -2,7 +2,13 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import IconoCornalinas from './IconoCornalinas.vue'
-import foto from '../assets/craft/temperado-02.jpg'
+import fotoGranos from '../assets/materia-prima/granos-cacao.jpg'
+// PLACEHOLDER: foto de banco libre (Unsplash), reemplazar con foto propia de la vaina en el árbol
+import fotoVaina from '../assets/materia-prima/placeholder-vaina-arbol.jpg'
+// PLACEHOLDER: foto de banco libre (Unsplash), reemplazar con foto propia de la cosecha
+import fotoCosecha from '../assets/materia-prima/placeholder-cosecha.jpg'
+// PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia del secado
+import fotoSecado from '../assets/materia-prima/placeholder-secado.jpg'
 import { useParallax } from '../composables/useParallax'
 
 const { t, tm } = useI18n()
@@ -24,12 +30,23 @@ const rasgos = computed(() =>
     <span class="orbe orbe--verde orbe--vagar4 materia__orbe" style="animation-delay: -17s" aria-hidden="true"></span>
 
     <div class="contenedor materia__grid">
-      <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco">
-        <img
-          :src="foto"
-          :alt="t('materia.foto')"
-          :style="{ transform: `translateY(${desplazamiento}px) scale(1.15)` }"
-        />
+      <div class="materia__mosaico">
+        <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco materia__marco--grande">
+          <img
+            :src="fotoGranos"
+            :alt="t('materia.fotoGranos')"
+            :style="{ transform: `translateY(${desplazamiento}px) scale(1.15)` }"
+          />
+        </div>
+        <div v-reveal="{ tipo: 'escala', delay: 120 }" class="materia__marco materia__marco--chica">
+          <img :src="fotoVaina" :alt="t('materia.fotoVaina')" />
+        </div>
+        <div v-reveal="{ tipo: 'escala', delay: 220 }" class="materia__marco materia__marco--chica">
+          <img :src="fotoCosecha" :alt="t('materia.fotoCosecha')" />
+        </div>
+        <div v-reveal="{ tipo: 'escala', delay: 320 }" class="materia__marco materia__marco--alta">
+          <img :src="fotoSecado" :alt="t('materia.fotoSecado')" />
+        </div>
       </div>
 
       <div class="materia__texto">
@@ -83,19 +100,43 @@ const rasgos = computed(() =>
 
 .materia__grid {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 1.15fr 1fr;
   gap: clamp(2.5rem, 6vw, 5rem);
   align-items: center;
+}
+
+.materia__mosaico {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  grid-template-rows: 1fr 1fr;
+  aspect-ratio: 8 / 5;
+  gap: clamp(0.7rem, 1.4vw, 1.1rem);
 }
 
 .materia__marco {
   position: relative;
   border-radius: 6px;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
   border: 6px solid var(--papel);
   outline: 1px solid var(--oro);
   outline-offset: -6px;
+}
+
+.materia__marco--grande {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+}
+
+.materia__marco--chica {
+  grid-column: 2;
+  aspect-ratio: 1 / 1;
+}
+
+.materia__marco--alta {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: stretch;
 }
 
 .materia__marco img {
@@ -165,6 +206,21 @@ const rasgos = computed(() =>
 @media (max-width: 900px) {
   .materia__grid {
     grid-template-columns: 1fr;
+  }
+
+  .materia__mosaico {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    aspect-ratio: auto;
+  }
+
+  .materia__marco--grande,
+  .materia__marco--chica,
+  .materia__marco--alta {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: auto;
+    aspect-ratio: 1 / 1;
   }
 }
 </style>

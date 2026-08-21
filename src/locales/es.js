@@ -45,7 +45,10 @@ export default {
     titulo: 'Venezuela en cada nota de sabor.',
     cuerpo:
       'Nuestro cacao es el protagonista indiscutible. Complejo, aromático y lleno de vida. Es una materia prima que habla directamente de su tierra y de la sabiduría ancestral de quienes la cultivan.',
-    foto: 'Temperado artesanal del chocolate Cornalinas',
+    fotoGranos: 'Granos de cacao venezolano partidos, mostrando su interior',
+    fotoVaina: 'Vainas de cacao madurando en el árbol',
+    fotoCosecha: 'Vainas de cacao recién cosechadas',
+    fotoSecado: 'Vaina de cacao abierta junto a granos secándose al sol',
     rasgos: [
       { etiqueta: 'Origen', valor: 'Venezuela' },
       { etiqueta: 'Perfil', valor: 'Frutal · Floral · Profundo' },

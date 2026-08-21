@@ -45,7 +45,10 @@ export default {
     titulo: 'Venezuela in jeder Geschmacksnote.',
     cuerpo:
       'Unser Kakao ist der unbestrittene Hauptdarsteller. Komplex, aromatisch und voller Leben. Ein Rohstoff, der direkt von seiner Heimat und dem überlieferten Wissen derer erzählt, die ihn anbauen.',
-    foto: 'Handwerkliches Temperieren der Cornalinas-Schokolade',
+    fotoGranos: 'Aufgebrochene venezolanische Kakaobohnen mit Blick auf ihr Inneres',
+    fotoVaina: 'Reifende Kakaoschoten am Baum',
+    fotoCosecha: 'Frisch geerntete Kakaoschoten',
+    fotoSecado: 'Eine geöffnete Kakaoschote neben in der Sonne trocknenden Bohnen',
     rasgos: [
       { etiqueta: 'Herkunft', valor: 'Venezuela' },
       { etiqueta: 'Profil', valor: 'Fruchtig · Blumig · Tiefgründig' },
