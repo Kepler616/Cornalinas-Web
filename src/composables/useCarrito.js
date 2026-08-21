@@ -33,6 +33,22 @@ export const productos = [
     precio: 19.5,
     destacado: true,
   },
+  {
+    id: 'mini-pack-4',
+    nombre: 'Mini Pack',
+    formato: '4 tabletas · 25 g cada una',
+    descripcion: 'Cuatro tabletas pequeñas para probar, compartir o llevar contigo a donde vayas.',
+    precio: 8.5,
+    destacado: false,
+  },
+  {
+    id: 'limon-coco',
+    nombre: 'Limón & Coco',
+    formato: 'Edición especial · Azúcar de coco',
+    descripcion: 'Chocolate oscuro con un toque cítrico de limón, relleno de coco y endulzado con azúcar de coco.',
+    precio: 7.5,
+    destacado: true,
+  },
 ]
 
 const cantidades = reactive(Object.fromEntries(productos.map((p) => [p.id, 0])))

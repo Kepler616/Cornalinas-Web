@@ -13,6 +13,10 @@ import cajaDiagonal from '../assets/product/caja-diagonal.png'
 import cajaLibro from '../assets/product/caja-libro.png'
 import tabletaOrigen from '../assets/product/tableta-origen.jpg'
 import tabletaLeche from '../assets/product/tableta-leche.jpg'
+// PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia del mini pack
+import miniPack from '../assets/product/placeholder-mini-pack.jpg'
+// PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia de Limón & Coco
+import limonCoco from '../assets/product/placeholder-limon-coco.jpg'
 
 const { t, tm } = useI18n()
 const modulos = [Navigation]
@@ -23,6 +27,8 @@ const medios = {
   'leche-45': { tipo: 'foto', src: tabletaLeche },
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
   'edicion-especial-9': { tipo: 'foto', src: cajaLibro },
+  'mini-pack-4': { tipo: 'foto', src: miniPack },
+  'limon-coco': { tipo: 'foto', src: limonCoco },
 }
 
 const productos = computed(() => {

@@ -93,6 +93,16 @@ export default {
         formato: '9 pieces',
         descripcion: 'Our signature offering: three textures of Venezuelan cacao, one single story.',
       },
+      'mini-pack-4': {
+        nombre: 'Mini Pack',
+        formato: '4 bars · 25 g each',
+        descripcion: 'Four small bars to sample, share, or take with you wherever you go.',
+      },
+      'limon-coco': {
+        nombre: 'Lemon & Coconut',
+        formato: 'Special edition · Coconut sugar',
+        descripcion: 'Dark chocolate with a citrusy hint of lemon, a coconut filling, sweetened with coconut sugar.',
+      },
     },
   },
   pedido: {

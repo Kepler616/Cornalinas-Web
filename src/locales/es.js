@@ -93,6 +93,16 @@ export default {
         formato: '9 piezas',
         descripcion: 'Nuestra propuesta insignia: tres texturas de cacao venezolano, una sola historia.',
       },
+      'mini-pack-4': {
+        nombre: 'Mini Pack',
+        formato: '4 tabletas · 25 g cada una',
+        descripcion: 'Cuatro tabletas pequeñas para probar, compartir o llevar contigo a donde vayas.',
+      },
+      'limon-coco': {
+        nombre: 'Limón & Coco',
+        formato: 'Edición especial · Azúcar de coco',
+        descripcion: 'Chocolate oscuro con un toque cítrico de limón, relleno de coco y endulzado con azúcar de coco.',
+      },
     },
   },
   pedido: {

@@ -93,6 +93,16 @@ export default {
         formato: '9 Stück',
         descripcion: 'Unser Aushängeschild: drei Texturen venezolanischen Kakaos, eine einzige Geschichte.',
       },
+      'mini-pack-4': {
+        nombre: 'Mini Pack',
+        formato: '4 Tafeln · je 25 g',
+        descripcion: 'Vier kleine Tafeln zum Probieren, Teilen oder Mitnehmen, wohin du auch gehst.',
+      },
+      'limon-coco': {
+        nombre: 'Zitrone & Kokos',
+        formato: 'Limitierte Edition · Kokosblütenzucker',
+        descripcion: 'Dunkle Schokolade mit einer erfrischenden Zitronennote, Kokosfüllung und mit Kokosblütenzucker gesüßt.',
+      },
     },
   },
   pedido: {
