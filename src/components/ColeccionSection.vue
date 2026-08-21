@@ -38,7 +38,7 @@ const zoomActivo = ref(false)
 const ZOOM = 2.4
 const LENTE_FRACCION = 1 / ZOOM
 const lupaEstilo = reactive({ width: '0px', height: '0px', left: '0px', top: '0px' })
-const zoomFondoEstilo = reactive({ backgroundImage: '', backgroundSize: '', backgroundPosition: '' })
+const origenZoom = reactive({ x: 50, y: 50 })
 
 const productoActivo = computed(() => productos.value.find((producto) => producto.id === idDetalle.value) || null)
 
@@ -47,10 +47,6 @@ const puedeZoom = typeof window !== 'undefined' && window.matchMedia('(hover: ho
 function abrirDetalle(id) {
   idDetalle.value = id
   zoomActivo.value = false
-  const media = medios[id]
-  if (media.tipo === 'foto') {
-    zoomFondoEstilo.backgroundImage = `url(${media.src})`
-  }
 }
 
 function cerrarDetalle() {
@@ -79,8 +75,8 @@ function alMoverEnImagen(evento) {
   lupaEstilo.left = `${x}px`
   lupaEstilo.top = `${y}px`
 
-  zoomFondoEstilo.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`
-  zoomFondoEstilo.backgroundPosition = `${-x * ZOOM}px ${-y * ZOOM}px`
+  origenZoom.x = ((x + anchoLente / 2) / rect.width) * 100
+  origenZoom.y = ((y + altoLente / 2) / rect.height) * 100
 }
 
 function alTecla(evento) {
@@ -211,7 +207,13 @@ watch(idDetalle, (valor) => {
                 </div>
               </div>
 
-              <div v-if="zoomActivo" class="detalle-zoom" :style="zoomFondoEstilo"></div>
+              <div v-if="zoomActivo" class="detalle-zoom">
+                <img
+                  :src="medios[productoActivo.id].src"
+                  :alt="productoActivo.nombre"
+                  :style="{ transform: `scale(${ZOOM})`, transformOrigin: `${origenZoom.x}% ${origenZoom.y}%` }"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -614,8 +616,14 @@ watch(idDetalle, (valor) => {
 .detalle-zoom {
   position: absolute;
   inset: 0;
-  background-repeat: no-repeat;
-  background-color: var(--papel-alto);
+  overflow: hidden;
+  background: var(--papel-alto);
+}
+
+.detalle-zoom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .detalle-transicion-enter-active,
