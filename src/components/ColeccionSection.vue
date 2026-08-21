@@ -12,6 +12,8 @@ import { useCarrito } from '../composables/useCarrito'
 import cajaDiagonal from '../assets/product/caja-diagonal.png'
 import cajaLibro from '../assets/product/caja-libro.png'
 import tableta from '../assets/product/tableta.jpg'
+// PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia de la tableta con leche
+import tabletaLeche from '../assets/product/placeholder-tableta-leche.jpg'
 
 const { t, tm } = useI18n()
 const modulos = [Navigation]
@@ -19,7 +21,7 @@ const { productos: catalogo, cantidades, incrementar, decrementar } = useCarrito
 
 const medios = {
   'origen-70': { tipo: 'foto', src: tableta },
-  'leche-45': { tipo: 'icono', valor: 'tableta' },
+  'leche-45': { tipo: 'foto', src: tabletaLeche },
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
   'edicion-especial-9': { tipo: 'foto', src: cajaLibro },
 }
