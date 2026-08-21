@@ -64,6 +64,8 @@ export default {
     cuerpo: 'Explore our selection and build your own Cornalinas moment.',
     notaPrecios: 'Prices in this first release are provisional.',
     insignia: 'Limited edition',
+    masDetalles: 'More details',
+    cerrar: 'Close',
     quitar: 'Remove one unit',
     anadir: 'Add one unit',
     anterior: 'Previous product',

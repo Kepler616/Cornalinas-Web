@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
@@ -12,8 +12,7 @@ import { useCarrito } from '../composables/useCarrito'
 import cajaDiagonal from '../assets/product/caja-diagonal.png'
 import cajaLibro from '../assets/product/caja-libro.png'
 import tableta from '../assets/product/tableta.jpg'
-// PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia de la tableta con leche
-import tabletaLeche from '../assets/product/placeholder-tableta-leche.jpg'
+import tabletaLeche from '../assets/product/tableta-leche.jpg'
 
 const { t, tm } = useI18n()
 const modulos = [Navigation]
@@ -32,6 +31,52 @@ const productos = computed(() => {
     ...producto,
     ...(traducciones[producto.id] || {}),
   }))
+})
+
+const idDetalle = ref(null)
+const zoomActivo = ref(false)
+const origenZoom = reactive({ x: 50, y: 50 })
+
+const productoActivo = computed(() => productos.value.find((producto) => producto.id === idDetalle.value) || null)
+
+function abrirDetalle(id) {
+  idDetalle.value = id
+  zoomActivo.value = false
+}
+
+function cerrarDetalle() {
+  idDetalle.value = null
+  zoomActivo.value = false
+}
+
+function actualizarOrigenZoom(evento) {
+  const rect = evento.currentTarget.getBoundingClientRect()
+  origenZoom.x = ((evento.clientX - rect.left) / rect.width) * 100
+  origenZoom.y = ((evento.clientY - rect.top) / rect.height) * 100
+}
+
+function alternarZoom(evento) {
+  if (zoomActivo.value) {
+    zoomActivo.value = false
+    return
+  }
+  actualizarOrigenZoom(evento)
+  zoomActivo.value = true
+}
+
+function moverZoom(evento) {
+  if (zoomActivo.value) actualizarOrigenZoom(evento)
+}
+
+function alTecla(evento) {
+  if (evento.key === 'Escape') cerrarDetalle()
+}
+
+onMounted(() => window.addEventListener('keydown', alTecla))
+onUnmounted(() => window.removeEventListener('keydown', alTecla))
+
+watch(idDetalle, (valor) => {
+  document.body.style.overflow = valor ? 'hidden' : ''
 })
 </script>
 
@@ -84,6 +129,10 @@ const productos = computed(() => {
             <h3>{{ producto.nombre }}</h3>
             <p class="tarjeta__descripcion">{{ producto.descripcion }}</p>
 
+            <button type="button" class="tarjeta__detalle" @click="abrirDetalle(producto.id)">
+              {{ t('coleccion.masDetalles') }} →
+            </button>
+
             <div class="tarjeta__pie">
               <span class="tarjeta__precio">{{ producto.precio.toFixed(2).replace('.', ',') }} €</span>
 
@@ -102,6 +151,45 @@ const productos = computed(() => {
       <button class="coleccion__flecha coleccion__flecha--prev" :aria-label="t('coleccion.anterior')">←</button>
       <button class="coleccion__flecha coleccion__flecha--next" :aria-label="t('coleccion.siguiente')">→</button>
     </div>
+
+    <Teleport to="body">
+      <Transition name="detalle-transicion">
+        <div
+          v-if="productoActivo"
+          class="detalle-fondo"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="productoActivo.nombre"
+          @click.self="cerrarDetalle"
+        >
+          <div class="detalle-panel cristal cristal--claro">
+            <button type="button" class="detalle-cerrar" @click="cerrarDetalle" :aria-label="t('coleccion.cerrar')">×</button>
+
+            <div
+              class="detalle-imagen"
+              :class="{ 'detalle-imagen--zoom': zoomActivo }"
+              @click="alternarZoom"
+              @mousemove="moverZoom"
+            >
+              <img
+                v-if="medios[productoActivo.id].tipo === 'foto'"
+                :src="medios[productoActivo.id].src"
+                :alt="productoActivo.nombre"
+                :style="{ transformOrigin: `${origenZoom.x}% ${origenZoom.y}%` }"
+              />
+              <IconoCornalinas v-else :tipo="medios[productoActivo.id].valor" class="tarjeta__icono" />
+            </div>
+
+            <div class="detalle-info">
+              <p class="tarjeta__formato">{{ productoActivo.formato }}</p>
+              <h3>{{ productoActivo.nombre }}</h3>
+              <p class="detalle-descripcion">{{ productoActivo.descripcion }}</p>
+              <span class="tarjeta__precio">{{ productoActivo.precio.toFixed(2).replace('.', ',') }} €</span>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
@@ -254,6 +342,25 @@ const productos = computed(() => {
   flex: 1;
 }
 
+.tarjeta__detalle {
+  align-self: flex-start;
+  margin-top: 0.9rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rojo);
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tarjeta__detalle:hover {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
 .tarjeta__pie {
   margin-top: 1rem;
   display: flex;
@@ -327,5 +434,126 @@ const productos = computed(() => {
   background: var(--rojo);
   border-color: var(--rojo);
   color: var(--blanco);
+}
+
+.detalle-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.2rem, 5vw, 3rem);
+  background: rgba(20, 5, 5, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.detalle-panel {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 0;
+}
+
+.detalle-cerrar {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(20, 5, 5, 0.5);
+  color: var(--blanco);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.detalle-cerrar:hover {
+  background: var(--rojo);
+  transform: scale(1.08);
+}
+
+.detalle-imagen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: zoom-in;
+  background: linear-gradient(160deg, var(--papel-sombra), var(--papel-alto));
+}
+
+.detalle-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.detalle-imagen--zoom {
+  cursor: zoom-out;
+}
+
+.detalle-imagen--zoom img {
+  transform: scale(2.2);
+  transition: transform 0.2s ease;
+}
+
+.detalle-info {
+  padding: clamp(1.6rem, 3.5vw, 2.6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detalle-info h3 {
+  margin-top: 0.4rem;
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+}
+
+.detalle-descripcion {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--cacao-suave);
+}
+
+.detalle-info .tarjeta__precio {
+  margin-top: 1.4rem;
+  font-size: 1.4rem;
+}
+
+.detalle-transicion-enter-active,
+.detalle-transicion-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.detalle-transicion-enter-from,
+.detalle-transicion-leave-to {
+  opacity: 0;
+}
+
+.detalle-transicion-enter-active .detalle-panel,
+.detalle-transicion-leave-active .detalle-panel {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detalle-transicion-enter-from .detalle-panel,
+.detalle-transicion-leave-to .detalle-panel {
+  transform: scale(0.94) translateY(16px);
+}
+
+@media (max-width: 720px) {
+  .detalle-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-imagen {
+    aspect-ratio: 4 / 3;
+  }
 }
 </style>
