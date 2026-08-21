@@ -67,6 +67,7 @@ export default {
     masDetalles: 'Mehr Details',
     cerrar: 'Schließen',
     pasarMouse: 'Zum Zoomen bewegen',
+    tocarZoom: 'Zum Zoomen tippen',
     precio: 'Preis',
     cantidad: 'Menge',
     quitar: 'Eine Einheit entfernen',

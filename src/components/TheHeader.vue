@@ -84,7 +84,7 @@ onUnmounted(() => window.removeEventListener('scroll', alScroll))
 
 .nav--solida {
   background: var(--cristal-claro-fondo);
-  backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(13px) saturate(160%);
   border-bottom: 1px solid var(--cristal-claro-borde);
   padding-block: 0.9rem;
   box-shadow: 0 12px 32px -20px rgba(58, 31, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);

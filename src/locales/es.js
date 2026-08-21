@@ -67,6 +67,7 @@ export default {
     masDetalles: 'Más detalles',
     cerrar: 'Cerrar',
     pasarMouse: 'Pasa el mouse para hacer zoom',
+    tocarZoom: 'Toca para hacer zoom',
     precio: 'Precio',
     cantidad: 'Cantidad',
     quitar: 'Quitar una unidad',

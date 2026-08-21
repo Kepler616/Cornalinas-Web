@@ -21,9 +21,9 @@ const medios = {
   'origen-70': { tipo: 'foto', src: tabletaOrigen },
   'leche-45': { tipo: 'foto', src: tabletaLeche },
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
-  'edicion-especial-9': { tipo: 'foto', src: cajaLibro },
+  'edicion-especial-9': { tipo: 'foto', src: cajaLibro, posicion: 'center top' },
   'mini-pack-4': { tipo: 'foto', src: miniPack },
-  'limon-coco': { tipo: 'foto', src: limonCoco },
+  'limon-coco': { tipo: 'foto', src: limonCoco, posicion: 'center 25%' },
 }
 
 const productos = computed(() => {
@@ -72,8 +72,7 @@ function alSalirImagen() {
   zoomActivo.value = false
 }
 
-function alMoverEnImagen(evento) {
-  if (!puedeZoom) return
+function calcularZoomDesdeEvento(evento) {
   const rect = evento.currentTarget.getBoundingClientRect()
   const anchoLente = rect.width * LENTE_FRACCION
   const altoLente = rect.height * LENTE_FRACCION
@@ -87,6 +86,24 @@ function alMoverEnImagen(evento) {
 
   origenZoom.x = ((x + anchoLente / 2) / rect.width) * 100
   origenZoom.y = ((y + altoLente / 2) / rect.height) * 100
+}
+
+function alMoverEnImagen(evento) {
+  if (!puedeZoom) return
+  calcularZoomDesdeEvento(evento)
+}
+
+// En celular no hay hover: un toque activa el zoom centrado en ese punto,
+// y otro toque lo desactiva. En escritorio esto no interfiere porque el
+// hover ya se encarga de mostrar y ocultar el zoom.
+function alTocarImagen(evento) {
+  if (puedeZoom) return
+  if (zoomActivo.value) {
+    zoomActivo.value = false
+    return
+  }
+  calcularZoomDesdeEvento(evento)
+  zoomActivo.value = true
 }
 
 function alTecla(evento) {
@@ -130,7 +147,12 @@ watch(idDetalle, (valor) => {
         <span v-if="producto.destacado" class="tarjeta__insignia">{{ t('coleccion.insignia') }}</span>
 
         <button type="button" class="tarjeta__medio" @click="abrirDetalle(producto.id)" :aria-label="`${t('coleccion.masDetalles')}: ${producto.nombre}`">
-          <img v-if="medios[producto.id].tipo === 'foto'" :src="medios[producto.id].src" :alt="producto.nombre" />
+          <img
+            v-if="medios[producto.id].tipo === 'foto'"
+            :src="medios[producto.id].src"
+            :alt="producto.nombre"
+            :style="{ objectPosition: medios[producto.id].posicion || 'center' }"
+          />
           <IconoCornalinas v-else :tipo="medios[producto.id].valor" class="tarjeta__icono" />
         </button>
 
@@ -171,18 +193,20 @@ watch(idDetalle, (valor) => {
 
             <div
               class="detalle-imagen"
-              :class="{ 'detalle-imagen--activa': zoomActivo }"
+              :class="{ 'detalle-imagen--activa': zoomActivo, 'detalle-imagen--tactil': !puedeZoom }"
               @mouseenter="alEntrarImagen"
               @mouseleave="alSalirImagen"
               @mousemove="alMoverEnImagen"
+              @click="alTocarImagen"
             >
               <img
                 v-if="medios[productoActivo.id].tipo === 'foto'"
                 :src="medios[productoActivo.id].src"
                 :alt="productoActivo.nombre"
+                :style="{ objectPosition: medios[productoActivo.id].posicion || 'center' }"
               />
               <IconoCornalinas v-else :tipo="medios[productoActivo.id].valor" class="tarjeta__icono" />
-              <span v-if="puedeZoom && !zoomActivo" class="detalle-pista-zoom">{{ t('coleccion.pasarMouse') }}</span>
+              <span v-if="!zoomActivo" class="detalle-pista-zoom">{{ puedeZoom ? t('coleccion.pasarMouse') : t('coleccion.tocarZoom') }}</span>
               <div v-if="zoomActivo" class="detalle-lupa" :style="lupaEstilo"></div>
             </div>
 
@@ -534,7 +558,8 @@ watch(idDetalle, (valor) => {
   transition: opacity 0.3s ease;
 }
 
-.detalle-imagen:hover .detalle-pista-zoom {
+.detalle-imagen:hover .detalle-pista-zoom,
+.detalle-imagen--tactil .detalle-pista-zoom {
   opacity: 1;
 }
 
@@ -608,7 +633,8 @@ watch(idDetalle, (valor) => {
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--oro);
+  color: var(--cacao);
+  opacity: 0.75;
 }
 
 .detalle-info .tarjeta__precio {
