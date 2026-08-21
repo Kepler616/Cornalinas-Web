@@ -84,4 +84,10 @@ const { el: marca, desplazamiento } = useParallax(0.18)
   background: var(--blanco);
   color: var(--burdeos);
 }
+
+@media (max-width: 640px) {
+  .regalo__caja {
+    width: calc(100% - 3rem);
+  }
+}
 </style>

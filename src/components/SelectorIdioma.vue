@@ -66,7 +66,8 @@ const idiomas = [
      activas invisibles la mitad de las veces. */
   color: var(--crema-suave);
   opacity: 0.7;
-  transition: background 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+  transition: background 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease,
+    color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .selector--oscuro .selector__opcion {
@@ -77,10 +78,15 @@ const idiomas = [
   opacity: 1;
 }
 
+.selector__opcion:active {
+  transform: scale(0.88);
+}
+
 .selector__opcion.activo {
   opacity: 1;
   background: var(--rojo);
   color: var(--blanco);
+  transform: scale(1.08);
 }
 
 .selector--flotante {

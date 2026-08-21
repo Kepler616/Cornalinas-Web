@@ -158,6 +158,10 @@ const paleta = ['#9f1e21', '#fcd5bf', '#7c1219', '#c8252d', '#dd3646', '#b9853f'
 }
 
 @media (max-width: 640px) {
+  .pie__tributo {
+    width: calc(100% - 3rem);
+  }
+
   .pie__linea {
     flex-direction: column;
     align-items: flex-start;
