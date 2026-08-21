@@ -11,7 +11,7 @@ import { useCarrito } from '../composables/useCarrito'
 
 import cajaDiagonal from '../assets/product/caja-diagonal.png'
 import cajaLibro from '../assets/product/caja-libro.png'
-import tableta from '../assets/product/tableta.jpg'
+import tabletaOrigen from '../assets/product/tableta-origen.jpg'
 import tabletaLeche from '../assets/product/tableta-leche.jpg'
 
 const { t, tm } = useI18n()
@@ -19,7 +19,7 @@ const modulos = [Navigation]
 const { productos: catalogo, cantidades, incrementar, decrementar } = useCarrito()
 
 const medios = {
-  'origen-70': { tipo: 'foto', src: tableta },
+  'origen-70': { tipo: 'foto', src: tabletaOrigen },
   'leche-45': { tipo: 'foto', src: tabletaLeche },
   'bombones-6': { tipo: 'foto', src: cajaDiagonal },
   'edicion-especial-9': { tipo: 'foto', src: cajaLibro },
@@ -35,13 +35,22 @@ const productos = computed(() => {
 
 const idDetalle = ref(null)
 const zoomActivo = ref(false)
-const origenZoom = reactive({ x: 50, y: 50 })
+const ZOOM = 2.4
+const LENTE_FRACCION = 1 / ZOOM
+const lupaEstilo = reactive({ width: '0px', height: '0px', left: '0px', top: '0px' })
+const zoomFondoEstilo = reactive({ backgroundImage: '', backgroundSize: '', backgroundPosition: '' })
 
 const productoActivo = computed(() => productos.value.find((producto) => producto.id === idDetalle.value) || null)
+
+const puedeZoom = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 function abrirDetalle(id) {
   idDetalle.value = id
   zoomActivo.value = false
+  const media = medios[id]
+  if (media.tipo === 'foto') {
+    zoomFondoEstilo.backgroundImage = `url(${media.src})`
+  }
 }
 
 function cerrarDetalle() {
@@ -49,23 +58,29 @@ function cerrarDetalle() {
   zoomActivo.value = false
 }
 
-function actualizarOrigenZoom(evento) {
+function alEntrarImagen() {
+  if (puedeZoom) zoomActivo.value = true
+}
+
+function alSalirImagen() {
+  zoomActivo.value = false
+}
+
+function alMoverEnImagen(evento) {
+  if (!puedeZoom) return
   const rect = evento.currentTarget.getBoundingClientRect()
-  origenZoom.x = ((evento.clientX - rect.left) / rect.width) * 100
-  origenZoom.y = ((evento.clientY - rect.top) / rect.height) * 100
-}
+  const anchoLente = rect.width * LENTE_FRACCION
+  const altoLente = rect.height * LENTE_FRACCION
+  const x = Math.min(Math.max(evento.clientX - rect.left - anchoLente / 2, 0), rect.width - anchoLente)
+  const y = Math.min(Math.max(evento.clientY - rect.top - altoLente / 2, 0), rect.height - altoLente)
 
-function alternarZoom(evento) {
-  if (zoomActivo.value) {
-    zoomActivo.value = false
-    return
-  }
-  actualizarOrigenZoom(evento)
-  zoomActivo.value = true
-}
+  lupaEstilo.width = `${anchoLente}px`
+  lupaEstilo.height = `${altoLente}px`
+  lupaEstilo.left = `${x}px`
+  lupaEstilo.top = `${y}px`
 
-function moverZoom(evento) {
-  if (zoomActivo.value) actualizarOrigenZoom(evento)
+  zoomFondoEstilo.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`
+  zoomFondoEstilo.backgroundPosition = `${-x * ZOOM}px ${-y * ZOOM}px`
 }
 
 function alTecla(evento) {
@@ -167,24 +182,36 @@ watch(idDetalle, (valor) => {
 
             <div
               class="detalle-imagen"
-              :class="{ 'detalle-imagen--zoom': zoomActivo }"
-              @click="alternarZoom"
-              @mousemove="moverZoom"
+              :class="{ 'detalle-imagen--activa': zoomActivo }"
+              @mouseenter="alEntrarImagen"
+              @mouseleave="alSalirImagen"
+              @mousemove="alMoverEnImagen"
             >
               <img
                 v-if="medios[productoActivo.id].tipo === 'foto'"
                 :src="medios[productoActivo.id].src"
                 :alt="productoActivo.nombre"
-                :style="{ transformOrigin: `${origenZoom.x}% ${origenZoom.y}%` }"
               />
               <IconoCornalinas v-else :tipo="medios[productoActivo.id].valor" class="tarjeta__icono" />
+              <span v-if="puedeZoom && !zoomActivo" class="detalle-pista-zoom">{{ t('coleccion.pasarMouse') }}</span>
+              <div v-if="zoomActivo" class="detalle-lupa" :style="lupaEstilo"></div>
             </div>
 
-            <div class="detalle-info">
-              <p class="tarjeta__formato">{{ productoActivo.formato }}</p>
-              <h3>{{ productoActivo.nombre }}</h3>
-              <p class="detalle-descripcion">{{ productoActivo.descripcion }}</p>
-              <span class="tarjeta__precio">{{ productoActivo.precio.toFixed(2).replace('.', ',') }} €</span>
+            <div class="detalle-columna">
+              <div class="detalle-info" :class="{ 'detalle-info--oculta': zoomActivo }">
+                <p class="eyebrow">{{ productoActivo.formato }}</p>
+                <h3>{{ productoActivo.nombre }}</h3>
+                <p class="detalle-descripcion">
+                  <IconoCornalinas tipo="hoja" class="detalle-descripcion__icono" />
+                  {{ productoActivo.descripcion }}
+                </p>
+                <div class="detalle-precio-fila">
+                  <span class="detalle-precio-etiqueta">{{ t('coleccion.precio') }}</span>
+                  <span class="tarjeta__precio">{{ productoActivo.precio.toFixed(2).replace('.', ',') }} €</span>
+                </div>
+              </div>
+
+              <div v-if="zoomActivo" class="detalle-zoom" :style="zoomFondoEstilo"></div>
             </div>
           </div>
         </div>
@@ -483,7 +510,7 @@ watch(idDetalle, (valor) => {
   position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  cursor: zoom-in;
+  cursor: crosshair;
   background: linear-gradient(160deg, var(--papel-sombra), var(--papel-alto));
 }
 
@@ -491,16 +518,38 @@ watch(idDetalle, (valor) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease;
 }
 
-.detalle-imagen--zoom {
-  cursor: zoom-out;
+.detalle-pista-zoom {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(20, 5, 5, 0.55);
+  color: var(--crema);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.detalle-imagen--zoom img {
-  transform: scale(2.2);
-  transition: transform 0.2s ease;
+.detalle-imagen:hover .detalle-pista-zoom {
+  opacity: 1;
+}
+
+.detalle-lupa {
+  position: absolute;
+  border: 2px solid var(--oro);
+  background: rgba(255, 244, 224, 0.28);
+  pointer-events: none;
+}
+
+.detalle-columna {
+  position: relative;
 }
 
 .detalle-info {
@@ -508,23 +557,65 @@ watch(idDetalle, (valor) => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.detalle-info--oculta {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .detalle-info h3 {
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
   font-size: clamp(1.4rem, 2.4vw, 1.8rem);
 }
 
 .detalle-descripcion {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--cacao-suave);
+  margin-top: 1.3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-family: var(--fuente-display);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--cacao);
+}
+
+.detalle-descripcion__icono {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.3rem;
+  color: var(--oro);
+  opacity: 0.85;
+}
+
+.detalle-precio-fila {
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--cristal-claro-borde);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.detalle-precio-etiqueta {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--oro);
 }
 
 .detalle-info .tarjeta__precio {
-  margin-top: 1.4rem;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+}
+
+.detalle-zoom {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-color: var(--papel-alto);
 }
 
 .detalle-transicion-enter-active,

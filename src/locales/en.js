@@ -66,6 +66,8 @@ export default {
     insignia: 'Limited edition',
     masDetalles: 'More details',
     cerrar: 'Close',
+    pasarMouse: 'Hover to zoom',
+    precio: 'Price',
     quitar: 'Remove one unit',
     anadir: 'Add one unit',
     anterior: 'Previous product',

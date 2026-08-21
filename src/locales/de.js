@@ -66,6 +66,8 @@ export default {
     insignia: 'Limitierte Edition',
     masDetalles: 'Mehr Details',
     cerrar: 'Schließen',
+    pasarMouse: 'Zum Zoomen bewegen',
+    precio: 'Preis',
     quitar: 'Eine Einheit entfernen',
     anadir: 'Eine Einheit hinzufügen',
     anterior: 'Vorheriges Produkt',
