@@ -42,6 +42,15 @@ const origenZoom = reactive({ x: 50, y: 50 })
 
 const productoActivo = computed(() => productos.value.find((producto) => producto.id === idDetalle.value) || null)
 
+// scale() por sí solo deja fijo el punto de transform-origin en su propia
+// posición de pantalla; para que la zona bajo la lupa quede centrada en el
+// panel (y coincida con lo que la lupa señala) hay que trasladarla primero
+// hacia el centro y luego escalar, en vez de escalar sobre un origen
+// descentrado.
+const zoomImagenEstilo = computed(() => ({
+  transform: `scale(${ZOOM}) translate(${50 - origenZoom.x}%, ${50 - origenZoom.y}%)`,
+}))
+
 const puedeZoom = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 function abrirDetalle(id) {
@@ -211,7 +220,7 @@ watch(idDetalle, (valor) => {
                 <img
                   :src="medios[productoActivo.id].src"
                   :alt="productoActivo.nombre"
-                  :style="{ transform: `scale(${ZOOM})`, transformOrigin: `${origenZoom.x}% ${origenZoom.y}%` }"
+                  :style="zoomImagenEstilo"
                 />
               </div>
             </div>
@@ -624,6 +633,7 @@ watch(idDetalle, (valor) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: center;
 }
 
 .detalle-transicion-enter-active,
