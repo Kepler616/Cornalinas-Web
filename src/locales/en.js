@@ -49,6 +49,9 @@ export default {
     fotoVaina: 'Cacao pods ripening on the tree',
     fotoCosecha: 'Freshly harvested cacao pods',
     fotoSecado: 'An open cacao pod beside beans drying in the sun',
+    fotoRecoleccion: 'Hand-harvesting cacao pods',
+    fotoFermentacion: 'Cacao beans fermenting and drying outdoors',
+    fotoVainaMano: 'A farmer holding her cacao pod harvest',
     rasgos: [
       { etiqueta: 'Origin', valor: 'Venezuela' },
       { etiqueta: 'Profile', valor: 'Fruity · Floral · Deep' },

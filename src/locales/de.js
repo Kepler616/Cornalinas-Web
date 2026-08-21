@@ -49,6 +49,9 @@ export default {
     fotoVaina: 'Reifende Kakaoschoten am Baum',
     fotoCosecha: 'Frisch geerntete Kakaoschoten',
     fotoSecado: 'Eine geöffnete Kakaoschote neben in der Sonne trocknenden Bohnen',
+    fotoRecoleccion: 'Handwerkliche Ernte der Kakaoschoten',
+    fotoFermentacion: 'Kakaobohnen beim Fermentieren und Trocknen im Freien',
+    fotoVainaMano: 'Eine Landwirtin hält ihre geerntete Kakaoschoten',
     rasgos: [
       { etiqueta: 'Herkunft', valor: 'Venezuela' },
       { etiqueta: 'Profil', valor: 'Fruchtig · Blumig · Tiefgründig' },

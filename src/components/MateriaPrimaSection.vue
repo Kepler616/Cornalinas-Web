@@ -9,10 +9,14 @@ import fotoVaina from '../assets/materia-prima/placeholder-vaina-arbol.jpg'
 import fotoCosecha from '../assets/materia-prima/placeholder-cosecha.jpg'
 // PLACEHOLDER: foto de banco libre (Pexels), reemplazar con foto propia del secado
 import fotoSecado from '../assets/materia-prima/placeholder-secado.jpg'
-import { useParallax } from '../composables/useParallax'
+// PLACEHOLDER: foto de banco libre (Unsplash), reemplazar con foto propia de la recolección
+import fotoRecoleccion from '../assets/materia-prima/placeholder-recoleccion.jpg'
+// PLACEHOLDER: foto de banco libre (Unsplash), reemplazar con foto propia de la fermentación
+import fotoFermentacion from '../assets/materia-prima/placeholder-fermentacion.jpg'
+// PLACEHOLDER: foto de banco libre (Unsplash), reemplazar con foto propia de la cosecha en mano
+import fotoVainaMano from '../assets/materia-prima/placeholder-vaina-mano.jpg'
 
 const { t, tm } = useI18n()
-const { el: marco, desplazamiento } = useParallax(0.12)
 
 const iconos = ['hoja', 'grano', 'remolino']
 
@@ -23,6 +27,19 @@ const rasgos = computed(() =>
     valor: rasgo.valor,
   }))
 )
+
+const fotos = computed(() => [
+  { src: fotoGranos, alt: t('materia.fotoGranos') },
+  { src: fotoVaina, alt: t('materia.fotoVaina') },
+  { src: fotoRecoleccion, alt: t('materia.fotoRecoleccion') },
+  { src: fotoCosecha, alt: t('materia.fotoCosecha') },
+  { src: fotoVainaMano, alt: t('materia.fotoVainaMano') },
+  { src: fotoFermentacion, alt: t('materia.fotoFermentacion') },
+  { src: fotoSecado, alt: t('materia.fotoSecado') },
+])
+
+// Se duplica la tira para que la animación de scroll continuo cierre en loop sin salto.
+const fotosPista = computed(() => [...fotos.value, ...fotos.value])
 </script>
 
 <template>
@@ -30,22 +47,16 @@ const rasgos = computed(() =>
     <span class="orbe orbe--verde orbe--vagar4 materia__orbe" style="animation-delay: -17s" aria-hidden="true"></span>
 
     <div class="contenedor materia__grid">
-      <div class="materia__mosaico">
-        <div ref="marco" v-reveal="{ tipo: 'escala' }" class="materia__marco materia__marco--grande">
-          <img
-            :src="fotoGranos"
-            :alt="t('materia.fotoGranos')"
-            :style="{ transform: `translateY(${desplazamiento}px) scale(1.15)` }"
-          />
-        </div>
-        <div v-reveal="{ tipo: 'escala', delay: 120 }" class="materia__marco materia__marco--chica">
-          <img :src="fotoVaina" :alt="t('materia.fotoVaina')" />
-        </div>
-        <div v-reveal="{ tipo: 'escala', delay: 220 }" class="materia__marco materia__marco--chica">
-          <img :src="fotoCosecha" :alt="t('materia.fotoCosecha')" />
-        </div>
-        <div v-reveal="{ tipo: 'escala', delay: 320 }" class="materia__marco materia__marco--alta">
-          <img :src="fotoSecado" :alt="t('materia.fotoSecado')" />
+      <div v-reveal="{ tipo: 'escala' }" class="materia__slider">
+        <div class="materia__pista">
+          <div
+            v-for="(foto, i) in fotosPista"
+            :key="i"
+            class="materia__slide"
+            :aria-hidden="i >= fotos.length"
+          >
+            <img :src="foto.src" :alt="foto.alt" loading="lazy" />
+          </div>
         </div>
       </div>
 
@@ -105,16 +116,25 @@ const rasgos = computed(() =>
   align-items: center;
 }
 
-.materia__mosaico {
-  display: grid;
-  grid-template-columns: 1.2fr 0.9fr 0.9fr;
-  grid-template-rows: 1fr 1fr;
-  aspect-ratio: 8 / 5;
-  gap: clamp(0.7rem, 1.4vw, 1.1rem);
+.materia__slider {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
 
-.materia__marco {
+.materia__pista {
+  display: flex;
+  gap: clamp(0.8rem, 1.6vw, 1.2rem);
+  width: max-content;
+  animation: materia-deslizar 42s linear infinite;
+}
+
+.materia__slide {
   position: relative;
+  flex: 0 0 auto;
+  width: clamp(200px, 21vw, 300px);
+  aspect-ratio: 4 / 3;
   border-radius: 6px;
   overflow: hidden;
   border: 6px solid var(--papel);
@@ -122,29 +142,25 @@ const rasgos = computed(() =>
   outline-offset: -6px;
 }
 
-.materia__marco--grande {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: stretch;
-}
-
-.materia__marco--chica {
-  grid-column: 2;
-  aspect-ratio: 1 / 1;
-}
-
-.materia__marco--alta {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-  align-self: stretch;
-}
-
-.materia__marco img {
+.materia__slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  will-change: transform;
-  transition: transform 0.1s linear;
+}
+
+@keyframes materia-deslizar {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .materia__pista {
+    animation: none;
+  }
 }
 
 .materia__titulo {
@@ -208,18 +224,8 @@ const rasgos = computed(() =>
     grid-template-columns: 1fr;
   }
 
-  .materia__mosaico {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    aspect-ratio: auto;
-  }
-
-  .materia__marco--grande,
-  .materia__marco--chica,
-  .materia__marco--alta {
-    grid-column: auto;
-    grid-row: auto;
-    align-self: auto;
+  .materia__slide {
+    width: clamp(140px, 38vw, 200px);
     aspect-ratio: 1 / 1;
   }
 }

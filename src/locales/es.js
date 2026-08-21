@@ -49,6 +49,9 @@ export default {
     fotoVaina: 'Vainas de cacao madurando en el árbol',
     fotoCosecha: 'Vainas de cacao recién cosechadas',
     fotoSecado: 'Vaina de cacao abierta junto a granos secándose al sol',
+    fotoRecoleccion: 'Recolección artesanal de las vainas de cacao',
+    fotoFermentacion: 'Granos de cacao fermentándose y secándose al aire libre',
+    fotoVainaMano: 'Una agricultora sostiene su cosecha de vainas de cacao',
     rasgos: [
       { etiqueta: 'Origen', valor: 'Venezuela' },
       { etiqueta: 'Perfil', valor: 'Frutal · Floral · Profundo' },
